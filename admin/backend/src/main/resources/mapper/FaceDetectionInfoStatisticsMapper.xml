@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kuafu.web.mapper.FaceDetectionInfoStatisticsMapper">
+
+    <resultMap id="face_detection_info_statistic_bd49b0c1_countStatistic0" type="com.kuafu.web.entity.FaceDetectionInfoStatisticBd49b0c1Count$Statistic0">
+        <result property="userInfoUserInfoId2" column="user_info_user_info_id_2"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="face_detection_info_statistic_bd9cef3c_countStatistic0" type="com.kuafu.web.entity.FaceDetectionInfoStatisticBd9cef3cCount$Statistic0">
+        <result property="userInfoUserInfoId2" column="user_info_user_info_id_2"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="face_detection_info_statistic_2006561b_countStatistic0" type="com.kuafu.web.entity.FaceDetectionInfoStatistic2006561bCount$Statistic0">
+        <result property="userInfoUserInfoId2" column="user_info_user_info_id_2"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+
+
+
+    <select id="face_detection_info_statistic_bd49b0c1_count" resultMap="face_detection_info_statistic_bd49b0c1_countStatistic0">
+        select
+                fdi.user_info_user_info_id_2  
+                ,  count(fdi.face_detection_info_id)
+ as result_kf
+        FROM face_detection_info fdi
+
+        ${ew.customSqlSegment}
+        group by 
+            fdi.user_info_user_info_id_2
+    </select>
+
+
+    <select id="face_detection_info_statistic_bd9cef3c_count" resultMap="face_detection_info_statistic_bd9cef3c_countStatistic0">
+        select
+                fdi.user_info_user_info_id_2  
+                ,  count(fdi.face_detection_info_id)
+ as result_kf
+        FROM face_detection_info fdi
+
+        ${ew.customSqlSegment}
+        group by 
+            fdi.user_info_user_info_id_2
+    </select>
+
+
+    <select id="face_detection_info_statistic_2006561b_count" resultMap="face_detection_info_statistic_2006561b_countStatistic0">
+        select
+                fdi.user_info_user_info_id_2  
+                ,  count(fdi.face_detection_info_id)
+ as result_kf
+        FROM face_detection_info fdi
+
+        ${ew.customSqlSegment}
+        group by 
+            fdi.user_info_user_info_id_2
+    </select>
+
+
+
+</mapper>

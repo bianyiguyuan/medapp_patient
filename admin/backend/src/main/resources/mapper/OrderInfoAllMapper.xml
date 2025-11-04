@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kuafu.web.mapper.OrderInfoAllMapper">
+
+
+        <select id="selectList" resultType="com.kuafu.web.entity.OrderInfoAll">
+            select
+            go.products_id   ,
+            go.order_no   ,
+            go.order_status   ,
+            go.op_id   ,
+            ui.member_level_id   ,
+            ui.avatar_resource_key   ,
+            go.user_id   ,
+            go.deliver_time   ,
+            go.is_deleted   ,
+            go.payment_amount   ,
+            ui.password   ,
+            pi.price   ,
+            go.complete_time   ,
+            go.actual_amount   ,
+            go.tel   ,
+            go.refund_amount   ,
+            go.refund_type   ,
+            pi.mini_program_path   ,
+            ose.status_name   ,
+            go.shipping_method   ,
+            go.quality   ,
+            oi.payment_order_no   ,
+            go.total_amount   ,
+            go.refund_status   ,
+            go.delivery_status   ,
+            oi.product_info_product_info_id   ,
+            go.order_type   ,
+            go.payment_channel   ,
+            ui.phone_number   ,
+            go.remark   ,
+            go.shipping_fee   ,
+            go.discount_amount   ,
+            go.payment_order_id   ,
+            go.tracking_number   ,
+            pi.product_name   ,
+            pi.coupon_amount   ,
+            go.table_name   ,
+            ui.email   ,
+            go.refund_id   ,
+            go.shipping_address   ,
+            go.create_time   ,
+            oi.quantity   ,
+            oi.total_price   ,
+            go.cancel_time   ,
+            go.refund_reason   ,
+            oi.user_info_user_info_id_5   ,
+            go.payment_time   ,
+            go.field_name   ,
+            go.refund_no   ,
+            oi.order_info_id   ,
+            go.pay_status   ,
+            go.recipient   ,
+            go.shipping_company   ,
+            pi.image_resource_key   ,
+            go.update_time   ,
+            oi.order_status_enum_id   ,
+            ui.username   
+            FROM order_info oi
+                left join user_info ui on oi.user_info_user_info_id_5 = ui.user_info_id
+                left join product_info pi on oi.product_info_product_info_id = pi.product_info_id
+                left join order_status_enum ose on oi.order_status_enum_id = ose.order_status_enum_id
+                left join general_orders go on oi.payment_order_no = go.id
+            ${ew.customSqlSegment}
+        </select>
+
+        <select id="selectPage" resultType="com.kuafu.web.entity.OrderInfoAll">
+            select
+            go.products_id  ,
+            go.order_no  ,
+            go.order_status  ,
+            go.op_id  ,
+            ui.member_level_id  ,
+            ui.avatar_resource_key  ,
+            go.user_id  ,
+            go.deliver_time  ,
+            go.is_deleted  ,
+            go.payment_amount  ,
+            ui.password  ,
+            pi.price  ,
+            go.complete_time  ,
+            go.actual_amount  ,
+            go.tel  ,
+            go.refund_amount  ,
+            go.refund_type  ,
+            pi.mini_program_path  ,
+            ose.status_name  ,
+            go.shipping_method  ,
+            go.quality  ,
+            oi.payment_order_no  ,
+            go.total_amount  ,
+            go.refund_status  ,
+            go.delivery_status  ,
+            oi.product_info_product_info_id  ,
+            go.order_type  ,
+            go.payment_channel  ,
+            ui.phone_number  ,
+            go.remark  ,
+            go.shipping_fee  ,
+            go.discount_amount  ,
+            go.payment_order_id  ,
+            go.tracking_number  ,
+            pi.product_name  ,
+            pi.coupon_amount  ,
+            go.table_name  ,
+            ui.email  ,
+            go.refund_id  ,
+            go.shipping_address  ,
+            go.create_time  ,
+            oi.quantity  ,
+            oi.total_price  ,
+            go.cancel_time  ,
+            go.refund_reason  ,
+            oi.user_info_user_info_id_5  ,
+            go.payment_time  ,
+            go.field_name  ,
+            go.refund_no  ,
+            oi.order_info_id  ,
+            go.pay_status  ,
+            go.recipient  ,
+            go.shipping_company  ,
+            pi.image_resource_key  ,
+            go.update_time  ,
+            oi.order_status_enum_id  ,
+            ui.username  
+            FROM order_info oi
+                left join user_info ui on oi.user_info_user_info_id_5 = ui.user_info_id
+                left join product_info pi on oi.product_info_product_info_id = pi.product_info_id
+                left join order_status_enum ose on oi.order_status_enum_id = ose.order_status_enum_id
+                left join general_orders go on oi.payment_order_no = go.id
+            ${ew.customSqlSegment}
+        </select>
+
+        <select id="selectById" resultType="com.kuafu.web.entity.OrderInfoAll">
+            select
+            go.products_id  ,
+            go.order_no  ,
+            go.order_status  ,
+            go.op_id  ,
+            ui.member_level_id  ,
+            ui.avatar_resource_key  ,
+            go.user_id  ,
+            go.deliver_time  ,
+            go.is_deleted  ,
+            go.payment_amount  ,
+            ui.password  ,
+            pi.price  ,
+            go.complete_time  ,
+            go.actual_amount  ,
+            go.tel  ,
+            go.refund_amount  ,
+            go.refund_type  ,
+            pi.mini_program_path  ,
+            ose.status_name  ,
+            go.shipping_method  ,
+            go.quality  ,
+            oi.payment_order_no  ,
+            go.total_amount  ,
+            go.refund_status  ,
+            go.delivery_status  ,
+            oi.product_info_product_info_id  ,
+            go.order_type  ,
+            go.payment_channel  ,
+            ui.phone_number  ,
+            go.remark  ,
+            go.shipping_fee  ,
+            go.discount_amount  ,
+            go.payment_order_id  ,
+            go.tracking_number  ,
+            pi.product_name  ,
+            pi.coupon_amount  ,
+            go.table_name  ,
+            ui.email  ,
+            go.refund_id  ,
+            go.shipping_address  ,
+            go.create_time  ,
+            oi.quantity  ,
+            oi.total_price  ,
+            go.cancel_time  ,
+            go.refund_reason  ,
+            oi.user_info_user_info_id_5  ,
+            go.payment_time  ,
+            go.field_name  ,
+            go.refund_no  ,
+            oi.order_info_id  ,
+            go.pay_status  ,
+            go.recipient  ,
+            go.shipping_company  ,
+            pi.image_resource_key  ,
+            go.update_time  ,
+            oi.order_status_enum_id  ,
+            ui.username  
+            FROM order_info oi
+                left join user_info ui on oi.user_info_user_info_id_5 = ui.user_info_id
+                left join product_info pi on oi.product_info_product_info_id = pi.product_info_id
+                left join order_status_enum ose on oi.order_status_enum_id = ose.order_status_enum_id
+                left join general_orders go on oi.payment_order_no = go.id
+            where oi.order_info_id = #{id}
+        </select>
+
+
+</mapper>

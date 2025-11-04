@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kuafu.web.mapper.OrderInfoAllMapper">
+    <sql id="order_info_list_sql">
+        select
+        pi.mini_program_path   ,
+        go.discount_amount   ,
+        go.payment_time   ,
+        go.refund_no   ,
+        go.actual_amount   ,
+        go.table_name   ,
+        go.order_status   ,
+        ui.password   ,
+        go.complete_time   ,
+        pi.price   ,
+        go.shipping_method   ,
+        go.tel   ,
+        go.order_type   ,
+        go.cancel_time   ,
+        go.refund_type   ,
+        go.refund_status   ,
+        go.shipping_company   ,
+        go.create_time   ,
+        go.payment_amount   ,
+        pi.product_name   ,
+        go.refund_id   ,
+        go.quality   ,
+        go.shipping_fee   ,
+        go.user_id   ,
+        go.total_amount   ,
+        go.payment_channel   ,
+        oi.order_status_enum_id   ,
+        ui.phone_number   ,
+        oi.payment_order_no   ,
+        go.order_no   ,
+        ui.member_level_id   ,
+        go.remark   ,
+        go.pay_status   ,
+        go.update_time   ,
+        go.is_deleted   ,
+        go.tracking_number   ,
+        go.refund_amount   ,
+        go.refund_reason   ,
+        go.shipping_address   ,
+        ui.email   ,
+        pi.coupon_amount   ,
+        go.deliver_time   ,
+        oi.order_info_id   ,
+        oi.quantity   ,
+        oi.total_price   ,
+        ose.status_name   ,
+        go.op_id   ,
+        go.payment_order_id   ,
+        oi.user_info_user_info_id_5   ,
+        go.field_name   ,
+        go.products_id   ,
+        oi.product_info_product_info_id   ,
+        go.recipient   ,
+        go.delivery_status   ,
+        ui.username   
+
+
+        FROM order_info oi
+        left join user_info ui on oi.user_info_user_info_id_5 = ui.user_info_id
+        left join product_info pi on oi.product_info_product_info_id = pi.product_info_id
+        left join order_status_enum ose on oi.order_status_enum_id = ose.order_status_enum_id
+        left join general_orders go on oi.payment_order_no = go.id
+
+        </sql>
+
+        <resultMap id="selectListNewMap" type="com.kuafu.web.entity.OrderInfoAll">
+
+        <result property="miniProgramPath" column="mini_program_path"/>
+
+        <result property="discountAmount" column="discount_amount"/>
+
+        <result property="paymentTime" column="payment_time"/>
+
+        <result property="refundNo" column="refund_no"/>
+
+        <result property="actualAmount" column="actual_amount"/>
+
+        <result property="tableName" column="table_name"/>
+
+        <result property="orderStatus" column="order_status"/>
+
+        <result property="password" column="password"/>
+
+        <result property="completeTime" column="complete_time"/>
+
+        <result property="price" column="price"/>
+
+        <result property="shippingMethod" column="shipping_method"/>
+
+        <result property="tel" column="tel"/>
+
+        <result property="orderType" column="order_type"/>
+
+        <result property="cancelTime" column="cancel_time"/>
+
+        <result property="refundType" column="refund_type"/>
+
+        <result property="refundStatus" column="refund_status"/>
+
+        <result property="shippingCompany" column="shipping_company"/>
+
+        <result property="createTime" column="create_time"/>
+
+        <result property="paymentAmount" column="payment_amount"/>
+
+        <result property="productName" column="product_name"/>
+
+        <result property="refundId" column="refund_id"/>
+
+        <result property="quality" column="quality"/>
+
+        <result property="shippingFee" column="shipping_fee"/>
+
+        <result property="userId" column="user_id"/>
+
+        <result property="totalAmount" column="total_amount"/>
+
+        <result property="paymentChannel" column="payment_channel"/>
+
+        <result property="orderStatusEnumId" column="order_status_enum_id"/>
+
+        <result property="phoneNumber" column="phone_number"/>
+
+        <result property="paymentOrderNo" column="payment_order_no"/>
+
+        <result property="orderNo" column="order_no"/>
+
+        <result property="memberLevelId" column="member_level_id"/>
+
+        <result property="remark" column="remark"/>
+
+        <result property="payStatus" column="pay_status"/>
+
+        <result property="updateTime" column="update_time"/>
+
+        <result property="isDeleted" column="is_deleted"/>
+
+        <result property="trackingNumber" column="tracking_number"/>
+
+        <result property="refundAmount" column="refund_amount"/>
+
+        <result property="refundReason" column="refund_reason"/>
+
+        <result property="shippingAddress" column="shipping_address"/>
+
+        <result property="email" column="email"/>
+
+        <result property="couponAmount" column="coupon_amount"/>
+
+        <result property="deliverTime" column="deliver_time"/>
+
+        <result property="orderInfoId" column="order_info_id"/>
+
+        <result property="quantity" column="quantity"/>
+
+        <result property="totalPrice" column="total_price"/>
+
+        <result property="statusName" column="status_name"/>
+
+        <result property="opId" column="op_id"/>
+
+        <result property="paymentOrderId" column="payment_order_id"/>
+
+        <result property="userInfoUserInfoId5" column="user_info_user_info_id_5"/>
+
+        <result property="fieldName" column="field_name"/>
+
+        <result property="productsId" column="products_id"/>
+
+        <result property="productInfoProductInfoId" column="product_info_product_info_id"/>
+
+        <result property="recipient" column="recipient"/>
+
+        <result property="deliveryStatus" column="delivery_status"/>
+
+        <result property="username" column="username"/>
+
+
+
+
+        </resultMap>
+
+<select id="selectListNew"  resultMap="selectListNewMap">
+select
+pi.mini_program_path   ,
+go.discount_amount   ,
+go.payment_time   ,
+go.refund_no   ,
+go.actual_amount   ,
+go.table_name   ,
+go.order_status   ,
+ui.password   ,
+go.complete_time   ,
+pi.price   ,
+go.shipping_method   ,
+go.tel   ,
+go.order_type   ,
+go.cancel_time   ,
+go.refund_type   ,
+go.refund_status   ,
+go.shipping_company   ,
+go.create_time   ,
+go.payment_amount   ,
+pi.product_name   ,
+go.refund_id   ,
+go.quality   ,
+go.shipping_fee   ,
+go.user_id   ,
+go.total_amount   ,
+go.payment_channel   ,
+oi.order_status_enum_id   ,
+ui.phone_number   ,
+oi.payment_order_no   ,
+go.order_no   ,
+ui.member_level_id   ,
+go.remark   ,
+go.pay_status   ,
+go.update_time   ,
+go.is_deleted   ,
+go.tracking_number   ,
+go.refund_amount   ,
+go.refund_reason   ,
+go.shipping_address   ,
+ui.email   ,
+pi.coupon_amount   ,
+go.deliver_time   ,
+oi.order_info_id   ,
+oi.quantity   ,
+oi.total_price   ,
+ose.status_name   ,
+go.op_id   ,
+go.payment_order_id   ,
+oi.user_info_user_info_id_5   ,
+go.field_name   ,
+go.products_id   ,
+oi.product_info_product_info_id   ,
+go.recipient   ,
+go.delivery_status   ,
+ui.username   
+
+
+
+        FROM order_info oi
+        left join
+
+        user_info
+
+        ui on oi.user_info_user_info_id_5 = ui.user_info_id
+        left join
+
+        product_info
+
+        pi on oi.product_info_product_info_id = pi.product_info_id
+        left join
+
+        order_status_enum
+
+        ose on oi.order_status_enum_id = ose.order_status_enum_id
+        left join
+
+        general_orders
+
+        go on oi.payment_order_no = go.id
+
+
+
+${ew.customSqlSegment}
+        </select>
+
+<select id="selectList" resultType="com.kuafu.web.entity.OrderInfoAll">
+select
+pi.mini_program_path   ,
+go.discount_amount   ,
+go.payment_time   ,
+go.refund_no   ,
+go.actual_amount   ,
+go.table_name   ,
+go.order_status   ,
+ui.password   ,
+go.complete_time   ,
+pi.price   ,
+go.shipping_method   ,
+go.tel   ,
+go.order_type   ,
+go.cancel_time   ,
+go.refund_type   ,
+go.refund_status   ,
+go.shipping_company   ,
+go.create_time   ,
+go.payment_amount   ,
+pi.product_name   ,
+go.refund_id   ,
+go.quality   ,
+go.shipping_fee   ,
+go.user_id   ,
+go.total_amount   ,
+go.payment_channel   ,
+oi.order_status_enum_id   ,
+ui.phone_number   ,
+oi.payment_order_no   ,
+go.order_no   ,
+ui.member_level_id   ,
+go.remark   ,
+go.pay_status   ,
+go.update_time   ,
+go.is_deleted   ,
+go.tracking_number   ,
+go.refund_amount   ,
+go.refund_reason   ,
+go.shipping_address   ,
+ui.email   ,
+pi.coupon_amount   ,
+go.deliver_time   ,
+oi.order_info_id   ,
+oi.quantity   ,
+oi.total_price   ,
+ose.status_name   ,
+go.op_id   ,
+go.payment_order_id   ,
+oi.user_info_user_info_id_5   ,
+go.field_name   ,
+go.products_id   ,
+oi.product_info_product_info_id   ,
+go.recipient   ,
+go.delivery_status   ,
+ui.username   
+
+
+        FROM order_info oi
+        left join user_info ui on oi.user_info_user_info_id_5 = ui.user_info_id
+        left join product_info pi on oi.product_info_product_info_id = pi.product_info_id
+        left join order_status_enum ose on oi.order_status_enum_id = ose.order_status_enum_id
+        left join general_orders go on oi.payment_order_no = go.id
+
+
+${ew.customSqlSegment}
+        </select>
+
+<select id="selectPage" resultType="com.kuafu.web.entity.OrderInfoAll">
+select
+pi.mini_program_path  ,
+go.discount_amount  ,
+go.payment_time  ,
+go.refund_no  ,
+go.actual_amount  ,
+go.table_name  ,
+go.order_status  ,
+ui.password  ,
+go.complete_time  ,
+pi.price  ,
+go.shipping_method  ,
+go.tel  ,
+go.order_type  ,
+go.cancel_time  ,
+go.refund_type  ,
+go.refund_status  ,
+go.shipping_company  ,
+go.create_time  ,
+go.payment_amount  ,
+pi.product_name  ,
+go.refund_id  ,
+go.quality  ,
+go.shipping_fee  ,
+go.user_id  ,
+go.total_amount  ,
+go.payment_channel  ,
+oi.order_status_enum_id  ,
+ui.phone_number  ,
+oi.payment_order_no  ,
+go.order_no  ,
+ui.member_level_id  ,
+go.remark  ,
+go.pay_status  ,
+go.update_time  ,
+go.is_deleted  ,
+go.tracking_number  ,
+go.refund_amount  ,
+go.refund_reason  ,
+go.shipping_address  ,
+ui.email  ,
+pi.coupon_amount  ,
+go.deliver_time  ,
+oi.order_info_id  ,
+oi.quantity  ,
+oi.total_price  ,
+ose.status_name  ,
+go.op_id  ,
+go.payment_order_id  ,
+oi.user_info_user_info_id_5  ,
+go.field_name  ,
+go.products_id  ,
+oi.product_info_product_info_id  ,
+go.recipient  ,
+go.delivery_status  ,
+ui.username  
+
+
+
+        FROM order_info oi
+        left join user_info ui on oi.user_info_user_info_id_5 = ui.user_info_id
+        left join product_info pi on oi.product_info_product_info_id = pi.product_info_id
+        left join order_status_enum ose on oi.order_status_enum_id = ose.order_status_enum_id
+        left join general_orders go on oi.payment_order_no = go.id
+
+
+
+
+
+${ew.customSqlSegment}
+        </select>
+
+<select id="selectById" resultType="com.kuafu.web.entity.OrderInfoAll">
+select
+pi.mini_program_path  ,
+go.discount_amount  ,
+go.payment_time  ,
+go.refund_no  ,
+go.actual_amount  ,
+go.table_name  ,
+go.order_status  ,
+ui.password  ,
+go.complete_time  ,
+pi.price  ,
+go.shipping_method  ,
+go.tel  ,
+go.order_type  ,
+go.cancel_time  ,
+go.refund_type  ,
+go.refund_status  ,
+go.shipping_company  ,
+go.create_time  ,
+go.payment_amount  ,
+pi.product_name  ,
+go.refund_id  ,
+go.quality  ,
+go.shipping_fee  ,
+go.user_id  ,
+go.total_amount  ,
+go.payment_channel  ,
+oi.order_status_enum_id  ,
+ui.phone_number  ,
+oi.payment_order_no  ,
+go.order_no  ,
+ui.member_level_id  ,
+go.remark  ,
+go.pay_status  ,
+go.update_time  ,
+go.is_deleted  ,
+go.tracking_number  ,
+go.refund_amount  ,
+go.refund_reason  ,
+go.shipping_address  ,
+ui.email  ,
+pi.coupon_amount  ,
+go.deliver_time  ,
+oi.order_info_id  ,
+oi.quantity  ,
+oi.total_price  ,
+ose.status_name  ,
+go.op_id  ,
+go.payment_order_id  ,
+oi.user_info_user_info_id_5  ,
+go.field_name  ,
+go.products_id  ,
+oi.product_info_product_info_id  ,
+go.recipient  ,
+go.delivery_status  ,
+ui.username  
+
+
+        FROM order_info oi
+        left join user_info ui on oi.user_info_user_info_id_5 = ui.user_info_id
+        left join product_info pi on oi.product_info_product_info_id = pi.product_info_id
+        left join order_status_enum ose on oi.order_status_enum_id = ose.order_status_enum_id
+        left join general_orders go on oi.payment_order_no = go.id
+
+
+
+        where oi.order_info_id = #{id}
+        </select>
+
+<select id="selectCount" resultType="java.lang.Long">
+select
+count(*)
+
+
+
+FROM order_info oi
+left join user_info ui on oi.user_info_user_info_id_5 = ui.user_info_id
+left join product_info pi on oi.product_info_product_info_id = pi.product_info_id
+left join order_status_enum ose on oi.order_status_enum_id = ose.order_status_enum_id
+left join general_orders go on oi.payment_order_no = go.id
+
+
+
+${ew.customSqlSegment}
+
+
+        </select>
+
+        </mapper>

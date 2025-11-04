@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kuafu.web.mapper.FaceDetectionInfoAllMapper">
+    <sql id="face_detection_info_list_sql">
+        select
+        fdi.aging_parts   ,
+        ui.password   ,
+        ui.member_level_id   ,
+        fdi.deep_analysis_unlocked   ,
+        fdi.custom_plan_unlocked   ,
+        fdi.impression_age   ,
+        ui.phone_number   ,
+        fdi.user_info_user_info_id_2   ,
+        fdi.face_detection_info_id   ,
+        ui.email   ,
+        ui.username   
+
+
+        FROM face_detection_info fdi
+        left join user_info ui on fdi.user_info_user_info_id_2 = ui.user_info_id
+
+        </sql>
+
+        <resultMap id="selectListNewMap" type="com.kuafu.web.entity.FaceDetectionInfoAll">
+
+        <result property="agingParts" column="aging_parts"/>
+
+        <result property="password" column="password"/>
+
+        <result property="memberLevelId" column="member_level_id"/>
+
+        <result property="deepAnalysisUnlocked" column="deep_analysis_unlocked"/>
+
+        <result property="customPlanUnlocked" column="custom_plan_unlocked"/>
+
+        <result property="impressionAge" column="impression_age"/>
+
+        <result property="phoneNumber" column="phone_number"/>
+
+        <result property="userInfoUserInfoId2" column="user_info_user_info_id_2"/>
+
+        <result property="faceDetectionInfoId" column="face_detection_info_id"/>
+
+        <result property="email" column="email"/>
+
+        <result property="username" column="username"/>
+
+
+
+                <collection property="uploadImage" ofType="com.kuafu.common.entity.StaticResource">
+                            <id property="resourceId" column="upload_image_resource_id"/>
+                            <result property="resourceName" column="upload_image_resource_name"/>
+                            <result property="resourcePath" column="upload_image_resource_path"/>
+                            <result property="relatedTableName" column="upload_image_related_table_name"/>
+                            <result property="relatedTableKey" column="upload_image_related_table_key"/>
+                            <result property="relateTableColumnName" column="upload_image_relate_table_column_name"/>
+                </collection>
+
+        </resultMap>
+
+<select id="selectListNew"  resultMap="selectListNewMap">
+select
+fdi.aging_parts   ,
+ui.password   ,
+ui.member_level_id   ,
+fdi.deep_analysis_unlocked   ,
+fdi.custom_plan_unlocked   ,
+fdi.impression_age   ,
+ui.phone_number   ,
+fdi.user_info_user_info_id_2   ,
+fdi.face_detection_info_id   ,
+ui.email   ,
+ui.username   
+
+        ,upload_image.resource_id as  upload_image_resource_id
+        ,upload_image.resource_name as upload_image_resource_name
+        ,upload_image.resource_path as  upload_image_resource_path
+        ,upload_image.related_table_name as  upload_image_related_table_name
+        ,upload_image.related_table_key as  upload_image_related_table_key
+        ,upload_image.relate_table_column_name as upload_image_relate_table_column_name
+
+
+        FROM face_detection_info fdi
+        left join
+
+        user_info
+
+        ui on fdi.user_info_user_info_id_2 = ui.user_info_id
+
+
+        left join
+        (select resource_id,
+        resource_name,
+        resource_path,
+        related_table_name,
+        related_table_key,
+        relate_table_column_name
+        from static_resources where related_table_name='face_detection_info' and relate_table_column_name='upload_image') as upload_image
+        on upload_image.related_table_key=fdi.face_detection_info_id
+
+${ew.customSqlSegment}
+        </select>
+
+<select id="selectList" resultType="com.kuafu.web.entity.FaceDetectionInfoAll">
+select
+fdi.aging_parts   ,
+ui.password   ,
+ui.member_level_id   ,
+fdi.deep_analysis_unlocked   ,
+fdi.custom_plan_unlocked   ,
+fdi.impression_age   ,
+ui.phone_number   ,
+fdi.user_info_user_info_id_2   ,
+fdi.face_detection_info_id   ,
+ui.email   ,
+ui.username   
+
+
+        FROM face_detection_info fdi
+        left join user_info ui on fdi.user_info_user_info_id_2 = ui.user_info_id
+
+
+${ew.customSqlSegment}
+        </select>
+
+<select id="selectPage" resultType="com.kuafu.web.entity.FaceDetectionInfoAll">
+select
+fdi.aging_parts  ,
+ui.password  ,
+ui.member_level_id  ,
+fdi.deep_analysis_unlocked  ,
+fdi.custom_plan_unlocked  ,
+fdi.impression_age  ,
+ui.phone_number  ,
+fdi.user_info_user_info_id_2  ,
+fdi.face_detection_info_id  ,
+ui.email  ,
+ui.username  
+
+
+
+        FROM face_detection_info fdi
+        left join user_info ui on fdi.user_info_user_info_id_2 = ui.user_info_id
+
+
+
+
+
+${ew.customSqlSegment}
+        </select>
+
+<select id="selectById" resultType="com.kuafu.web.entity.FaceDetectionInfoAll">
+select
+fdi.aging_parts  ,
+ui.password  ,
+ui.member_level_id  ,
+fdi.deep_analysis_unlocked  ,
+fdi.custom_plan_unlocked  ,
+fdi.impression_age  ,
+ui.phone_number  ,
+fdi.user_info_user_info_id_2  ,
+fdi.face_detection_info_id  ,
+ui.email  ,
+ui.username  
+
+
+        FROM face_detection_info fdi
+        left join user_info ui on fdi.user_info_user_info_id_2 = ui.user_info_id
+
+
+
+        where fdi.face_detection_info_id = #{id}
+        </select>
+
+<select id="selectCount" resultType="java.lang.Long">
+select
+count(*)
+
+
+
+FROM face_detection_info fdi
+left join user_info ui on fdi.user_info_user_info_id_2 = ui.user_info_id
+
+
+
+${ew.customSqlSegment}
+
+
+        </select>
+
+        </mapper>

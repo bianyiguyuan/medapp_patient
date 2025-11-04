@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kuafu.web.mapper.OrderInfoStatisticsMapper">
+
+    <resultMap id="order_info_statistic_78be52de_countStatistic0" type="com.kuafu.web.entity.OrderInfoStatistic78be52deCount$Statistic0">
+        <result property="userInfoUserInfoId5" column="user_info_user_info_id_5"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="order_info_statistic_cac602ba_countStatistic0" type="com.kuafu.web.entity.OrderInfoStatisticCac602baCount$Statistic0">
+        <result property="userInfoUserInfoId5" column="user_info_user_info_id_5"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="order_info_statistic_c1f3da7b_countStatistic0" type="com.kuafu.web.entity.OrderInfoStatisticC1f3da7bCount$Statistic0">
+        <result property="userInfoUserInfoId5" column="user_info_user_info_id_5"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="order_info_statistic_b678dff5_countStatistic0" type="com.kuafu.web.entity.OrderInfoStatisticB678dff5Count$Statistic0">
+        <result property="productInfoProductInfoId" column="product_info_product_info_id"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="order_info_statistic_13a72ffb_countStatistic0" type="com.kuafu.web.entity.OrderInfoStatistic13a72ffbCount$Statistic0">
+        <result property="productInfoProductInfoId" column="product_info_product_info_id"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="order_info_statistic_2549672a_countStatistic0" type="com.kuafu.web.entity.OrderInfoStatistic2549672aCount$Statistic0">
+        <result property="productInfoProductInfoId" column="product_info_product_info_id"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="order_info_statistic_47128f62_countStatistic0" type="com.kuafu.web.entity.OrderInfoStatistic47128f62Count$Statistic0">
+        <result property="orderStatusEnumId" column="order_status_enum_id"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="order_info_statistic_9340d0f4_countStatistic0" type="com.kuafu.web.entity.OrderInfoStatistic9340d0f4Count$Statistic0">
+        <result property="orderStatusEnumId" column="order_status_enum_id"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="order_info_statistic_55633d24_countStatistic0" type="com.kuafu.web.entity.OrderInfoStatistic55633d24Count$Statistic0">
+        <result property="orderStatusEnumId" column="order_status_enum_id"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="order_info_statistic_ecbc57bf_countStatistic0" type="com.kuafu.web.entity.OrderInfoStatisticEcbc57bfCount$Statistic0">
+        <result property="paymentOrderNo" column="payment_order_no"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="order_info_statistic_634a7ba6_countStatistic0" type="com.kuafu.web.entity.OrderInfoStatistic634a7ba6Count$Statistic0">
+        <result property="paymentOrderNo" column="payment_order_no"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="order_info_statistic_03b9e7eb_countStatistic0" type="com.kuafu.web.entity.OrderInfoStatistic03b9e7ebCount$Statistic0">
+        <result property="paymentOrderNo" column="payment_order_no"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="order_info_order_status_enum_id_status_statistic_546711ee_countStatistic0" type="com.kuafu.web.entity.OrderInfoOrderStatusEnumIdStatusStatistic546711eeCount$Statistic0">
+        <result property="orderStatusEnumId" column="order_status_enum_id"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="order_info_order_status_enum_id_status_statistic_a3491f78_countStatistic0" type="com.kuafu.web.entity.OrderInfoOrderStatusEnumIdStatusStatisticA3491f78Count$Statistic0">
+        <result property="orderStatusEnumId" column="order_status_enum_id"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="order_info_order_status_enum_id_status_statistic_43727b26_countStatistic0" type="com.kuafu.web.entity.OrderInfoOrderStatusEnumIdStatusStatistic43727b26Count$Statistic0">
+        <result property="orderStatusEnumId" column="order_status_enum_id"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+
+
+
+    <select id="order_info_statistic_78be52de_count" resultMap="order_info_statistic_78be52de_countStatistic0">
+        select
+                oi.user_info_user_info_id_5  
+                ,  count(oi.order_info_id)
+ as result_kf
+        FROM order_info oi
+
+        ${ew.customSqlSegment}
+        group by 
+            oi.user_info_user_info_id_5
+    </select>
+
+
+    <select id="order_info_statistic_cac602ba_count" resultMap="order_info_statistic_cac602ba_countStatistic0">
+        select
+                oi.user_info_user_info_id_5  
+                ,  count(oi.order_info_id)
+ as result_kf
+        FROM order_info oi
+
+        ${ew.customSqlSegment}
+        group by 
+            oi.user_info_user_info_id_5
+    </select>
+
+
+    <select id="order_info_statistic_c1f3da7b_count" resultMap="order_info_statistic_c1f3da7b_countStatistic0">
+        select
+                oi.user_info_user_info_id_5  
+                ,  count(oi.order_info_id)
+ as result_kf
+        FROM order_info oi
+
+        ${ew.customSqlSegment}
+        group by 
+            oi.user_info_user_info_id_5
+    </select>
+
+
+    <select id="order_info_statistic_b678dff5_count" resultMap="order_info_statistic_b678dff5_countStatistic0">
+        select
+                oi.product_info_product_info_id  
+                ,  count(oi.order_info_id)
+ as result_kf
+        FROM order_info oi
+
+        ${ew.customSqlSegment}
+        group by 
+            oi.product_info_product_info_id
+    </select>
+
+
+    <select id="order_info_statistic_13a72ffb_count" resultMap="order_info_statistic_13a72ffb_countStatistic0">
+        select
+                oi.product_info_product_info_id  
+                ,  count(oi.order_info_id)
+ as result_kf
+        FROM order_info oi
+
+        ${ew.customSqlSegment}
+        group by 
+            oi.product_info_product_info_id
+    </select>
+
+
+    <select id="order_info_statistic_2549672a_count" resultMap="order_info_statistic_2549672a_countStatistic0">
+        select
+                oi.product_info_product_info_id  
+                ,  count(oi.order_info_id)
+ as result_kf
+        FROM order_info oi
+
+        ${ew.customSqlSegment}
+        group by 
+            oi.product_info_product_info_id
+    </select>
+
+
+    <select id="order_info_statistic_47128f62_count" resultMap="order_info_statistic_47128f62_countStatistic0">
+        select
+                oi.order_status_enum_id  
+                ,  count(oi.order_info_id)
+ as result_kf
+        FROM order_info oi
+
+        ${ew.customSqlSegment}
+        group by 
+            oi.order_status_enum_id
+    </select>
+
+
+    <select id="order_info_statistic_9340d0f4_count" resultMap="order_info_statistic_9340d0f4_countStatistic0">
+        select
+                oi.order_status_enum_id  
+                ,  count(oi.order_info_id)
+ as result_kf
+        FROM order_info oi
+
+        ${ew.customSqlSegment}
+        group by 
+            oi.order_status_enum_id
+    </select>
+
+
+    <select id="order_info_statistic_55633d24_count" resultMap="order_info_statistic_55633d24_countStatistic0">
+        select
+                oi.order_status_enum_id  
+                ,  count(oi.order_info_id)
+ as result_kf
+        FROM order_info oi
+
+        ${ew.customSqlSegment}
+        group by 
+            oi.order_status_enum_id
+    </select>
+
+
+    <select id="order_info_statistic_ecbc57bf_count" resultMap="order_info_statistic_ecbc57bf_countStatistic0">
+        select
+                oi.payment_order_no  
+                ,  count(oi.order_info_id)
+ as result_kf
+        FROM order_info oi
+
+        ${ew.customSqlSegment}
+        group by 
+            oi.payment_order_no
+    </select>
+
+
+    <select id="order_info_statistic_634a7ba6_count" resultMap="order_info_statistic_634a7ba6_countStatistic0">
+        select
+                oi.payment_order_no  
+                ,  count(oi.order_info_id)
+ as result_kf
+        FROM order_info oi
+
+        ${ew.customSqlSegment}
+        group by 
+            oi.payment_order_no
+    </select>
+
+
+    <select id="order_info_statistic_03b9e7eb_count" resultMap="order_info_statistic_03b9e7eb_countStatistic0">
+        select
+                oi.payment_order_no  
+                ,  count(oi.order_info_id)
+ as result_kf
+        FROM order_info oi
+
+        ${ew.customSqlSegment}
+        group by 
+            oi.payment_order_no
+    </select>
+
+
+    <select id="order_info_order_status_enum_id_status_statistic_546711ee_count" resultMap="order_info_order_status_enum_id_status_statistic_546711ee_countStatistic0">
+        select
+                oi.order_status_enum_id  
+                ,  count(oi.order_info_id)
+ as result_kf
+        FROM order_info oi
+
+        ${ew.customSqlSegment}
+        group by 
+            oi.order_status_enum_id
+    </select>
+
+
+    <select id="order_info_order_status_enum_id_status_statistic_a3491f78_count" resultMap="order_info_order_status_enum_id_status_statistic_a3491f78_countStatistic0">
+        select
+                oi.order_status_enum_id  
+                ,  count(oi.order_info_id)
+ as result_kf
+        FROM order_info oi
+
+        ${ew.customSqlSegment}
+        group by 
+            oi.order_status_enum_id
+    </select>
+
+
+    <select id="order_info_order_status_enum_id_status_statistic_43727b26_count" resultMap="order_info_order_status_enum_id_status_statistic_43727b26_countStatistic0">
+        select
+                oi.order_status_enum_id  
+                ,  count(oi.order_info_id)
+ as result_kf
+        FROM order_info oi
+
+        ${ew.customSqlSegment}
+        group by 
+            oi.order_status_enum_id
+    </select>
+
+
+
+</mapper>

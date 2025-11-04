@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kuafu.web.mapper.AppointmentInfoStatisticsMapper">
+
+    <resultMap id="appointment_info_statistic_79c41f2d_countStatistic0" type="com.kuafu.web.entity.AppointmentInfoStatistic79c41f2dCount$Statistic0">
+        <result property="userInfoUserInfoId1" column="user_info_user_info_id_1"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="appointment_info_statistic_68bf9dc9_countStatistic0" type="com.kuafu.web.entity.AppointmentInfoStatistic68bf9dc9Count$Statistic0">
+        <result property="userInfoUserInfoId1" column="user_info_user_info_id_1"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="appointment_info_statistic_2295eb27_countStatistic0" type="com.kuafu.web.entity.AppointmentInfoStatistic2295eb27Count$Statistic0">
+        <result property="userInfoUserInfoId1" column="user_info_user_info_id_1"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="appointment_info_statistic_ea7f3f64_countStatistic0" type="com.kuafu.web.entity.AppointmentInfoStatisticEa7f3f64Count$Statistic0">
+        <result property="statusEnumId" column="status_enum_id"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="appointment_info_statistic_bd73227b_countStatistic0" type="com.kuafu.web.entity.AppointmentInfoStatisticBd73227bCount$Statistic0">
+        <result property="statusEnumId" column="status_enum_id"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="appointment_info_statistic_a642f352_countStatistic0" type="com.kuafu.web.entity.AppointmentInfoStatisticA642f352Count$Statistic0">
+        <result property="statusEnumId" column="status_enum_id"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="appointment_info_appointment_date_datetime_statistic_51bb93f2_countStatistic0" type="com.kuafu.web.entity.AppointmentInfoAppointmentDateDatetimeStatistic51bb93f2Count$Statistic0">
+        <result property="appointmentDate" column="appointment_date"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="appointment_info_appointment_date_datetime_statistic_2552826b_countStatistic0" type="com.kuafu.web.entity.AppointmentInfoAppointmentDateDatetimeStatistic2552826bCount$Statistic0">
+        <result property="appointmentDate" column="appointment_date"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="appointment_info_appointment_date_datetime_statistic_9af84525_countStatistic0" type="com.kuafu.web.entity.AppointmentInfoAppointmentDateDatetimeStatistic9af84525Count$Statistic0">
+        <result property="appointmentDate" column="appointment_date"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="appointment_info_status_enum_id_status_statistic_b808bb00_countStatistic0" type="com.kuafu.web.entity.AppointmentInfoStatusEnumIdStatusStatisticB808bb00Count$Statistic0">
+        <result property="statusEnumId" column="status_enum_id"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="appointment_info_status_enum_id_status_statistic_6a735f1e_countStatistic0" type="com.kuafu.web.entity.AppointmentInfoStatusEnumIdStatusStatistic6a735f1eCount$Statistic0">
+        <result property="statusEnumId" column="status_enum_id"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="appointment_info_status_enum_id_status_statistic_1bfef9e7_countStatistic0" type="com.kuafu.web.entity.AppointmentInfoStatusEnumIdStatusStatistic1bfef9e7Count$Statistic0">
+        <result property="statusEnumId" column="status_enum_id"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+
+
+
+    <select id="appointment_info_statistic_79c41f2d_count" resultMap="appointment_info_statistic_79c41f2d_countStatistic0">
+        select
+                ai.user_info_user_info_id_1  
+                ,  count(ai.appointment_info_id)
+ as result_kf
+        FROM appointment_info ai
+
+        ${ew.customSqlSegment}
+        group by 
+            ai.user_info_user_info_id_1
+    </select>
+
+
+    <select id="appointment_info_statistic_68bf9dc9_count" resultMap="appointment_info_statistic_68bf9dc9_countStatistic0">
+        select
+                ai.user_info_user_info_id_1  
+                ,  count(ai.appointment_info_id)
+ as result_kf
+        FROM appointment_info ai
+
+        ${ew.customSqlSegment}
+        group by 
+            ai.user_info_user_info_id_1
+    </select>
+
+
+    <select id="appointment_info_statistic_2295eb27_count" resultMap="appointment_info_statistic_2295eb27_countStatistic0">
+        select
+                ai.user_info_user_info_id_1  
+                ,  count(ai.appointment_info_id)
+ as result_kf
+        FROM appointment_info ai
+
+        ${ew.customSqlSegment}
+        group by 
+            ai.user_info_user_info_id_1
+    </select>
+
+
+    <select id="appointment_info_statistic_ea7f3f64_count" resultMap="appointment_info_statistic_ea7f3f64_countStatistic0">
+        select
+                ai.status_enum_id  
+                ,  count(ai.appointment_info_id)
+ as result_kf
+        FROM appointment_info ai
+
+        ${ew.customSqlSegment}
+        group by 
+            ai.status_enum_id
+    </select>
+
+
+    <select id="appointment_info_statistic_bd73227b_count" resultMap="appointment_info_statistic_bd73227b_countStatistic0">
+        select
+                ai.status_enum_id  
+                ,  count(ai.appointment_info_id)
+ as result_kf
+        FROM appointment_info ai
+
+        ${ew.customSqlSegment}
+        group by 
+            ai.status_enum_id
+    </select>
+
+
+    <select id="appointment_info_statistic_a642f352_count" resultMap="appointment_info_statistic_a642f352_countStatistic0">
+        select
+                ai.status_enum_id  
+                ,  count(ai.appointment_info_id)
+ as result_kf
+        FROM appointment_info ai
+
+        ${ew.customSqlSegment}
+        group by 
+            ai.status_enum_id
+    </select>
+
+
+    <select id="appointment_info_appointment_date_datetime_statistic_51bb93f2_count" resultMap="appointment_info_appointment_date_datetime_statistic_51bb93f2_countStatistic0">
+        select
+                ai.appointment_date  
+                ,  count(ai.appointment_info_id)
+ as result_kf
+        FROM appointment_info ai
+
+        ${ew.customSqlSegment}
+        group by 
+            ai.appointment_date
+    </select>
+
+
+    <select id="appointment_info_appointment_date_datetime_statistic_2552826b_count" resultMap="appointment_info_appointment_date_datetime_statistic_2552826b_countStatistic0">
+        select
+                ai.appointment_date  
+                ,  count(ai.appointment_info_id)
+ as result_kf
+        FROM appointment_info ai
+
+        ${ew.customSqlSegment}
+        group by 
+            ai.appointment_date
+    </select>
+
+
+    <select id="appointment_info_appointment_date_datetime_statistic_9af84525_count" resultMap="appointment_info_appointment_date_datetime_statistic_9af84525_countStatistic0">
+        select
+                ai.appointment_date  
+                ,  count(ai.appointment_info_id)
+ as result_kf
+        FROM appointment_info ai
+
+        ${ew.customSqlSegment}
+        group by 
+            ai.appointment_date
+    </select>
+
+
+    <select id="appointment_info_status_enum_id_status_statistic_b808bb00_count" resultMap="appointment_info_status_enum_id_status_statistic_b808bb00_countStatistic0">
+        select
+                ai.status_enum_id  
+                ,  count(ai.appointment_info_id)
+ as result_kf
+        FROM appointment_info ai
+
+        ${ew.customSqlSegment}
+        group by 
+            ai.status_enum_id
+    </select>
+
+
+    <select id="appointment_info_status_enum_id_status_statistic_6a735f1e_count" resultMap="appointment_info_status_enum_id_status_statistic_6a735f1e_countStatistic0">
+        select
+                ai.status_enum_id  
+                ,  count(ai.appointment_info_id)
+ as result_kf
+        FROM appointment_info ai
+
+        ${ew.customSqlSegment}
+        group by 
+            ai.status_enum_id
+    </select>
+
+
+    <select id="appointment_info_status_enum_id_status_statistic_1bfef9e7_count" resultMap="appointment_info_status_enum_id_status_statistic_1bfef9e7_countStatistic0">
+        select
+                ai.status_enum_id  
+                ,  count(ai.appointment_info_id)
+ as result_kf
+        FROM appointment_info ai
+
+        ${ew.customSqlSegment}
+        group by 
+            ai.status_enum_id
+    </select>
+
+
+
+</mapper>

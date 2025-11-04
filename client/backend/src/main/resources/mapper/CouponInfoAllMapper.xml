@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kuafu.web.mapper.CouponInfoAllMapper">
+    <sql id="coupon_info_list_sql">
+        select
+        ci.amount   ,
+        ui.password   ,
+        ci.coupon_info_id   ,
+        ui.member_level_id   ,
+        ui.phone_number   ,
+        ci.user_info_user_info_id_4   ,
+        ui.email   ,
+        ci.is_used   ,
+        ui.username   
+
+
+        FROM coupon_info ci
+        left join user_info ui on ci.user_info_user_info_id_4 = ui.user_info_id
+
+        </sql>
+
+        <resultMap id="selectListNewMap" type="com.kuafu.web.entity.CouponInfoAll">
+
+        <result property="amount" column="amount"/>
+
+        <result property="password" column="password"/>
+
+        <result property="couponInfoId" column="coupon_info_id"/>
+
+        <result property="memberLevelId" column="member_level_id"/>
+
+        <result property="phoneNumber" column="phone_number"/>
+
+        <result property="userInfoUserInfoId4" column="user_info_user_info_id_4"/>
+
+        <result property="email" column="email"/>
+
+        <result property="isUsed" column="is_used"/>
+
+        <result property="username" column="username"/>
+
+
+
+
+        </resultMap>
+
+<select id="selectListNew"  resultMap="selectListNewMap">
+select
+ci.amount   ,
+ui.password   ,
+ci.coupon_info_id   ,
+ui.member_level_id   ,
+ui.phone_number   ,
+ci.user_info_user_info_id_4   ,
+ui.email   ,
+ci.is_used   ,
+ui.username   
+
+
+
+        FROM coupon_info ci
+        left join
+
+        user_info
+
+        ui on ci.user_info_user_info_id_4 = ui.user_info_id
+
+
+
+${ew.customSqlSegment}
+        </select>
+
+<select id="selectList" resultType="com.kuafu.web.entity.CouponInfoAll">
+select
+ci.amount   ,
+ui.password   ,
+ci.coupon_info_id   ,
+ui.member_level_id   ,
+ui.phone_number   ,
+ci.user_info_user_info_id_4   ,
+ui.email   ,
+ci.is_used   ,
+ui.username   
+
+
+        FROM coupon_info ci
+        left join user_info ui on ci.user_info_user_info_id_4 = ui.user_info_id
+
+
+${ew.customSqlSegment}
+        </select>
+
+<select id="selectPage" resultType="com.kuafu.web.entity.CouponInfoAll">
+select
+ci.amount  ,
+ui.password  ,
+ci.coupon_info_id  ,
+ui.member_level_id  ,
+ui.phone_number  ,
+ci.user_info_user_info_id_4  ,
+ui.email  ,
+ci.is_used  ,
+ui.username  
+
+
+
+        FROM coupon_info ci
+        left join user_info ui on ci.user_info_user_info_id_4 = ui.user_info_id
+
+
+
+
+
+${ew.customSqlSegment}
+        </select>
+
+<select id="selectById" resultType="com.kuafu.web.entity.CouponInfoAll">
+select
+ci.amount  ,
+ui.password  ,
+ci.coupon_info_id  ,
+ui.member_level_id  ,
+ui.phone_number  ,
+ci.user_info_user_info_id_4  ,
+ui.email  ,
+ci.is_used  ,
+ui.username  
+
+
+        FROM coupon_info ci
+        left join user_info ui on ci.user_info_user_info_id_4 = ui.user_info_id
+
+
+
+        where ci.coupon_info_id = #{id}
+        </select>
+
+<select id="selectCount" resultType="java.lang.Long">
+select
+count(*)
+
+
+
+FROM coupon_info ci
+left join user_info ui on ci.user_info_user_info_id_4 = ui.user_info_id
+
+
+
+${ew.customSqlSegment}
+
+
+        </select>
+
+        </mapper>

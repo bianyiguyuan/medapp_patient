@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kuafu.web.mapper.AppointmentStatusEnumStatisticsMapper">
+
+    <resultMap id="appointment_status_enum_appointment_status_enum_id_status_statistic_c8bb39e7_countStatistic0" type="com.kuafu.web.entity.AppointmentStatusEnumAppointmentStatusEnumIdStatusStatisticC8bb39e7Count$Statistic0">
+        <result property="appointmentStatusEnumId" column="appointment_status_enum_id"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="appointment_status_enum_appointment_status_enum_id_status_statistic_f5b4188e_countStatistic0" type="com.kuafu.web.entity.AppointmentStatusEnumAppointmentStatusEnumIdStatusStatisticF5b4188eCount$Statistic0">
+        <result property="appointmentStatusEnumId" column="appointment_status_enum_id"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="appointment_status_enum_appointment_status_enum_id_status_statistic_d95ed513_countStatistic0" type="com.kuafu.web.entity.AppointmentStatusEnumAppointmentStatusEnumIdStatusStatisticD95ed513Count$Statistic0">
+        <result property="appointmentStatusEnumId" column="appointment_status_enum_id"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="appointment_status_enum_status_name_status_statistic_249d4459_countStatistic0" type="com.kuafu.web.entity.AppointmentStatusEnumStatusNameStatusStatistic249d4459Count$Statistic0">
+        <result property="statusName" column="status_name"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="appointment_status_enum_status_name_status_statistic_3b4314ee_countStatistic0" type="com.kuafu.web.entity.AppointmentStatusEnumStatusNameStatusStatistic3b4314eeCount$Statistic0">
+        <result property="statusName" column="status_name"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="appointment_status_enum_status_name_status_statistic_335ff694_countStatistic0" type="com.kuafu.web.entity.AppointmentStatusEnumStatusNameStatusStatistic335ff694Count$Statistic0">
+        <result property="statusName" column="status_name"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+
+
+
+    <select id="appointment_status_enum_appointment_status_enum_id_status_statistic_c8bb39e7_count" resultMap="appointment_status_enum_appointment_status_enum_id_status_statistic_c8bb39e7_countStatistic0">
+        select
+                ase.appointment_status_enum_id  
+                ,  count(ase.appointment_status_enum_id)
+ as result_kf
+        FROM appointment_status_enum ase
+
+        ${ew.customSqlSegment}
+        group by 
+            ase.appointment_status_enum_id
+    </select>
+
+
+    <select id="appointment_status_enum_appointment_status_enum_id_status_statistic_f5b4188e_count" resultMap="appointment_status_enum_appointment_status_enum_id_status_statistic_f5b4188e_countStatistic0">
+        select
+                ase.appointment_status_enum_id  
+                ,  count(ase.appointment_status_enum_id)
+ as result_kf
+        FROM appointment_status_enum ase
+
+        ${ew.customSqlSegment}
+        group by 
+            ase.appointment_status_enum_id
+    </select>
+
+
+    <select id="appointment_status_enum_appointment_status_enum_id_status_statistic_d95ed513_count" resultMap="appointment_status_enum_appointment_status_enum_id_status_statistic_d95ed513_countStatistic0">
+        select
+                ase.appointment_status_enum_id  
+                ,  count(ase.appointment_status_enum_id)
+ as result_kf
+        FROM appointment_status_enum ase
+
+        ${ew.customSqlSegment}
+        group by 
+            ase.appointment_status_enum_id
+    </select>
+
+
+    <select id="appointment_status_enum_status_name_status_statistic_249d4459_count" resultMap="appointment_status_enum_status_name_status_statistic_249d4459_countStatistic0">
+        select
+                ase.status_name  
+                ,  count(ase.appointment_status_enum_id)
+ as result_kf
+        FROM appointment_status_enum ase
+
+        ${ew.customSqlSegment}
+        group by 
+            ase.status_name
+    </select>
+
+
+    <select id="appointment_status_enum_status_name_status_statistic_3b4314ee_count" resultMap="appointment_status_enum_status_name_status_statistic_3b4314ee_countStatistic0">
+        select
+                ase.status_name  
+                ,  count(ase.appointment_status_enum_id)
+ as result_kf
+        FROM appointment_status_enum ase
+
+        ${ew.customSqlSegment}
+        group by 
+            ase.status_name
+    </select>
+
+
+    <select id="appointment_status_enum_status_name_status_statistic_335ff694_count" resultMap="appointment_status_enum_status_name_status_statistic_335ff694_countStatistic0">
+        select
+                ase.status_name  
+                ,  count(ase.appointment_status_enum_id)
+ as result_kf
+        FROM appointment_status_enum ase
+
+        ${ew.customSqlSegment}
+        group by 
+            ase.status_name
+    </select>
+
+
+
+</mapper>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kuafu.web.mapper.OrderStatusEnumStatisticsMapper">
+
+    <resultMap id="order_status_enum_order_status_enum_id_status_statistic_9bc9ef17_countStatistic0" type="com.kuafu.web.entity.OrderStatusEnumOrderStatusEnumIdStatusStatistic9bc9ef17Count$Statistic0">
+        <result property="orderStatusEnumId" column="order_status_enum_id"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="order_status_enum_order_status_enum_id_status_statistic_2bcfa4b6_countStatistic0" type="com.kuafu.web.entity.OrderStatusEnumOrderStatusEnumIdStatusStatistic2bcfa4b6Count$Statistic0">
+        <result property="orderStatusEnumId" column="order_status_enum_id"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="order_status_enum_order_status_enum_id_status_statistic_da23ad10_countStatistic0" type="com.kuafu.web.entity.OrderStatusEnumOrderStatusEnumIdStatusStatisticDa23ad10Count$Statistic0">
+        <result property="orderStatusEnumId" column="order_status_enum_id"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="order_status_enum_status_name_status_statistic_a8cf06c4_countStatistic0" type="com.kuafu.web.entity.OrderStatusEnumStatusNameStatusStatisticA8cf06c4Count$Statistic0">
+        <result property="statusName" column="status_name"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="order_status_enum_status_name_status_statistic_50ddd169_countStatistic0" type="com.kuafu.web.entity.OrderStatusEnumStatusNameStatusStatistic50ddd169Count$Statistic0">
+        <result property="statusName" column="status_name"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="order_status_enum_status_name_status_statistic_f7be0462_countStatistic0" type="com.kuafu.web.entity.OrderStatusEnumStatusNameStatusStatisticF7be0462Count$Statistic0">
+        <result property="statusName" column="status_name"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+
+
+
+    <select id="order_status_enum_order_status_enum_id_status_statistic_9bc9ef17_count" resultMap="order_status_enum_order_status_enum_id_status_statistic_9bc9ef17_countStatistic0">
+        select
+                ose.order_status_enum_id  
+                ,  count(ose.order_status_enum_id)
+ as result_kf
+        FROM order_status_enum ose
+
+        ${ew.customSqlSegment}
+        group by 
+            ose.order_status_enum_id
+    </select>
+
+
+    <select id="order_status_enum_order_status_enum_id_status_statistic_2bcfa4b6_count" resultMap="order_status_enum_order_status_enum_id_status_statistic_2bcfa4b6_countStatistic0">
+        select
+                ose.order_status_enum_id  
+                ,  count(ose.order_status_enum_id)
+ as result_kf
+        FROM order_status_enum ose
+
+        ${ew.customSqlSegment}
+        group by 
+            ose.order_status_enum_id
+    </select>
+
+
+    <select id="order_status_enum_order_status_enum_id_status_statistic_da23ad10_count" resultMap="order_status_enum_order_status_enum_id_status_statistic_da23ad10_countStatistic0">
+        select
+                ose.order_status_enum_id  
+                ,  count(ose.order_status_enum_id)
+ as result_kf
+        FROM order_status_enum ose
+
+        ${ew.customSqlSegment}
+        group by 
+            ose.order_status_enum_id
+    </select>
+
+
+    <select id="order_status_enum_status_name_status_statistic_a8cf06c4_count" resultMap="order_status_enum_status_name_status_statistic_a8cf06c4_countStatistic0">
+        select
+                ose.status_name  
+                ,  count(ose.order_status_enum_id)
+ as result_kf
+        FROM order_status_enum ose
+
+        ${ew.customSqlSegment}
+        group by 
+            ose.status_name
+    </select>
+
+
+    <select id="order_status_enum_status_name_status_statistic_50ddd169_count" resultMap="order_status_enum_status_name_status_statistic_50ddd169_countStatistic0">
+        select
+                ose.status_name  
+                ,  count(ose.order_status_enum_id)
+ as result_kf
+        FROM order_status_enum ose
+
+        ${ew.customSqlSegment}
+        group by 
+            ose.status_name
+    </select>
+
+
+    <select id="order_status_enum_status_name_status_statistic_f7be0462_count" resultMap="order_status_enum_status_name_status_statistic_f7be0462_countStatistic0">
+        select
+                ose.status_name  
+                ,  count(ose.order_status_enum_id)
+ as result_kf
+        FROM order_status_enum ose
+
+        ${ew.customSqlSegment}
+        group by 
+            ose.status_name
+    </select>
+
+
+
+</mapper>

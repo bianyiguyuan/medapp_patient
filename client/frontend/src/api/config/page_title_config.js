@@ -1,0 +1,1 @@
+export default		{"smartqa":"智能问答","mycenter":"我的","facedetect":"检测","couponlist":"优惠券列表","appointment":"预约","membership":"会员权益","login":"登录页","distribution":"分销推广","patientinfo":"患者信息填写","brandminiprogram":"品牌小程序","register":"注册页","orderlist":"订单列表","home":"首页"}

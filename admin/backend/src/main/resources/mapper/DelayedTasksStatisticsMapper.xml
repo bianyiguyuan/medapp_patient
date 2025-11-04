@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kuafu.web.mapper.DelayedTasksStatisticsMapper">
+
+    <resultMap id="delayed_tasks_status_status_statistic_25c6486d_countStatistic0" type="com.kuafu.web.entity.DelayedTasksStatusStatusStatistic25c6486dCount$Statistic0">
+        <result property="status" column="status"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="delayed_tasks_status_status_statistic_b664fbca_countStatistic0" type="com.kuafu.web.entity.DelayedTasksStatusStatusStatisticB664fbcaCount$Statistic0">
+        <result property="status" column="status"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="delayed_tasks_status_status_statistic_f7af67be_countStatistic0" type="com.kuafu.web.entity.DelayedTasksStatusStatusStatisticF7af67beCount$Statistic0">
+        <result property="status" column="status"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="delayed_tasks_execute_time_datetime_statistic_15cc1805_countStatistic0" type="com.kuafu.web.entity.DelayedTasksExecuteTimeDatetimeStatistic15cc1805Count$Statistic0">
+        <result property="executeTime" column="execute_time"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="delayed_tasks_execute_time_datetime_statistic_5293da89_countStatistic0" type="com.kuafu.web.entity.DelayedTasksExecuteTimeDatetimeStatistic5293da89Count$Statistic0">
+        <result property="executeTime" column="execute_time"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="delayed_tasks_execute_time_datetime_statistic_470e98fd_countStatistic0" type="com.kuafu.web.entity.DelayedTasksExecuteTimeDatetimeStatistic470e98fdCount$Statistic0">
+        <result property="executeTime" column="execute_time"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="delayed_tasks_create_time_datetime_statistic_92d59b0a_countStatistic0" type="com.kuafu.web.entity.DelayedTasksCreateTimeDatetimeStatistic92d59b0aCount$Statistic0">
+        <result property="createTime" column="create_time"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="delayed_tasks_create_time_datetime_statistic_ea989616_countStatistic0" type="com.kuafu.web.entity.DelayedTasksCreateTimeDatetimeStatisticEa989616Count$Statistic0">
+        <result property="createTime" column="create_time"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="delayed_tasks_create_time_datetime_statistic_357d2036_countStatistic0" type="com.kuafu.web.entity.DelayedTasksCreateTimeDatetimeStatistic357d2036Count$Statistic0">
+        <result property="createTime" column="create_time"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="delayed_tasks_update_time_datetime_statistic_db4e931a_countStatistic0" type="com.kuafu.web.entity.DelayedTasksUpdateTimeDatetimeStatisticDb4e931aCount$Statistic0">
+        <result property="updateTime" column="update_time"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="delayed_tasks_update_time_datetime_statistic_dd6b066c_countStatistic0" type="com.kuafu.web.entity.DelayedTasksUpdateTimeDatetimeStatisticDd6b066cCount$Statistic0">
+        <result property="updateTime" column="update_time"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="delayed_tasks_update_time_datetime_statistic_ec1bf144_countStatistic0" type="com.kuafu.web.entity.DelayedTasksUpdateTimeDatetimeStatisticEc1bf144Count$Statistic0">
+        <result property="updateTime" column="update_time"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+
+
+
+    <select id="delayed_tasks_status_status_statistic_25c6486d_count" resultMap="delayed_tasks_status_status_statistic_25c6486d_countStatistic0">
+        select
+                dt.status  
+                ,  count(dt.id)
+ as result_kf
+        FROM delayed_tasks dt
+
+        ${ew.customSqlSegment}
+        group by 
+            dt.status
+    </select>
+
+
+    <select id="delayed_tasks_status_status_statistic_b664fbca_count" resultMap="delayed_tasks_status_status_statistic_b664fbca_countStatistic0">
+        select
+                dt.status  
+                ,  count(dt.id)
+ as result_kf
+        FROM delayed_tasks dt
+
+        ${ew.customSqlSegment}
+        group by 
+            dt.status
+    </select>
+
+
+    <select id="delayed_tasks_status_status_statistic_f7af67be_count" resultMap="delayed_tasks_status_status_statistic_f7af67be_countStatistic0">
+        select
+                dt.status  
+                ,  count(dt.id)
+ as result_kf
+        FROM delayed_tasks dt
+
+        ${ew.customSqlSegment}
+        group by 
+            dt.status
+    </select>
+
+
+    <select id="delayed_tasks_execute_time_datetime_statistic_15cc1805_count" resultMap="delayed_tasks_execute_time_datetime_statistic_15cc1805_countStatistic0">
+        select
+                dt.execute_time  
+                ,  count(dt.id)
+ as result_kf
+        FROM delayed_tasks dt
+
+        ${ew.customSqlSegment}
+        group by 
+            dt.execute_time
+    </select>
+
+
+    <select id="delayed_tasks_execute_time_datetime_statistic_5293da89_count" resultMap="delayed_tasks_execute_time_datetime_statistic_5293da89_countStatistic0">
+        select
+                dt.execute_time  
+                ,  count(dt.id)
+ as result_kf
+        FROM delayed_tasks dt
+
+        ${ew.customSqlSegment}
+        group by 
+            dt.execute_time
+    </select>
+
+
+    <select id="delayed_tasks_execute_time_datetime_statistic_470e98fd_count" resultMap="delayed_tasks_execute_time_datetime_statistic_470e98fd_countStatistic0">
+        select
+                dt.execute_time  
+                ,  count(dt.id)
+ as result_kf
+        FROM delayed_tasks dt
+
+        ${ew.customSqlSegment}
+        group by 
+            dt.execute_time
+    </select>
+
+
+    <select id="delayed_tasks_create_time_datetime_statistic_92d59b0a_count" resultMap="delayed_tasks_create_time_datetime_statistic_92d59b0a_countStatistic0">
+        select
+                dt.create_time  
+                ,  count(dt.id)
+ as result_kf
+        FROM delayed_tasks dt
+
+        ${ew.customSqlSegment}
+        group by 
+            dt.create_time
+    </select>
+
+
+    <select id="delayed_tasks_create_time_datetime_statistic_ea989616_count" resultMap="delayed_tasks_create_time_datetime_statistic_ea989616_countStatistic0">
+        select
+                dt.create_time  
+                ,  count(dt.id)
+ as result_kf
+        FROM delayed_tasks dt
+
+        ${ew.customSqlSegment}
+        group by 
+            dt.create_time
+    </select>
+
+
+    <select id="delayed_tasks_create_time_datetime_statistic_357d2036_count" resultMap="delayed_tasks_create_time_datetime_statistic_357d2036_countStatistic0">
+        select
+                dt.create_time  
+                ,  count(dt.id)
+ as result_kf
+        FROM delayed_tasks dt
+
+        ${ew.customSqlSegment}
+        group by 
+            dt.create_time
+    </select>
+
+
+    <select id="delayed_tasks_update_time_datetime_statistic_db4e931a_count" resultMap="delayed_tasks_update_time_datetime_statistic_db4e931a_countStatistic0">
+        select
+                dt.update_time  
+                ,  count(dt.id)
+ as result_kf
+        FROM delayed_tasks dt
+
+        ${ew.customSqlSegment}
+        group by 
+            dt.update_time
+    </select>
+
+
+    <select id="delayed_tasks_update_time_datetime_statistic_dd6b066c_count" resultMap="delayed_tasks_update_time_datetime_statistic_dd6b066c_countStatistic0">
+        select
+                dt.update_time  
+                ,  count(dt.id)
+ as result_kf
+        FROM delayed_tasks dt
+
+        ${ew.customSqlSegment}
+        group by 
+            dt.update_time
+    </select>
+
+
+    <select id="delayed_tasks_update_time_datetime_statistic_ec1bf144_count" resultMap="delayed_tasks_update_time_datetime_statistic_ec1bf144_countStatistic0">
+        select
+                dt.update_time  
+                ,  count(dt.id)
+ as result_kf
+        FROM delayed_tasks dt
+
+        ${ew.customSqlSegment}
+        group by 
+            dt.update_time
+    </select>
+
+
+
+</mapper>

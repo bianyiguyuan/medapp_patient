@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kuafu.web.mapper.CommissionInfoAllMapper">
+    <sql id="commission_info_list_sql">
+        select
+        ui.password   ,
+        ci.commission_info_id   ,
+        ci.total_earnings   ,
+        ui.member_level_id   ,
+        ci.commission_ratio   ,
+        ui.phone_number   ,
+        ci.user_info_user_info_id_3   ,
+        ui.email   ,
+        ui.username   
+
+
+        FROM commission_info ci
+        left join user_info ui on ci.user_info_user_info_id_3 = ui.user_info_id
+
+        </sql>
+
+        <resultMap id="selectListNewMap" type="com.kuafu.web.entity.CommissionInfoAll">
+
+        <result property="password" column="password"/>
+
+        <result property="commissionInfoId" column="commission_info_id"/>
+
+        <result property="totalEarnings" column="total_earnings"/>
+
+        <result property="memberLevelId" column="member_level_id"/>
+
+        <result property="commissionRatio" column="commission_ratio"/>
+
+        <result property="phoneNumber" column="phone_number"/>
+
+        <result property="userInfoUserInfoId3" column="user_info_user_info_id_3"/>
+
+        <result property="email" column="email"/>
+
+        <result property="username" column="username"/>
+
+
+
+
+        </resultMap>
+
+<select id="selectListNew"  resultMap="selectListNewMap">
+select
+ui.password   ,
+ci.commission_info_id   ,
+ci.total_earnings   ,
+ui.member_level_id   ,
+ci.commission_ratio   ,
+ui.phone_number   ,
+ci.user_info_user_info_id_3   ,
+ui.email   ,
+ui.username   
+
+
+
+        FROM commission_info ci
+        left join
+
+        user_info
+
+        ui on ci.user_info_user_info_id_3 = ui.user_info_id
+
+
+
+${ew.customSqlSegment}
+        </select>
+
+<select id="selectList" resultType="com.kuafu.web.entity.CommissionInfoAll">
+select
+ui.password   ,
+ci.commission_info_id   ,
+ci.total_earnings   ,
+ui.member_level_id   ,
+ci.commission_ratio   ,
+ui.phone_number   ,
+ci.user_info_user_info_id_3   ,
+ui.email   ,
+ui.username   
+
+
+        FROM commission_info ci
+        left join user_info ui on ci.user_info_user_info_id_3 = ui.user_info_id
+
+
+${ew.customSqlSegment}
+        </select>
+
+<select id="selectPage" resultType="com.kuafu.web.entity.CommissionInfoAll">
+select
+ui.password  ,
+ci.commission_info_id  ,
+ci.total_earnings  ,
+ui.member_level_id  ,
+ci.commission_ratio  ,
+ui.phone_number  ,
+ci.user_info_user_info_id_3  ,
+ui.email  ,
+ui.username  
+
+
+
+        FROM commission_info ci
+        left join user_info ui on ci.user_info_user_info_id_3 = ui.user_info_id
+
+
+
+
+
+${ew.customSqlSegment}
+        </select>
+
+<select id="selectById" resultType="com.kuafu.web.entity.CommissionInfoAll">
+select
+ui.password  ,
+ci.commission_info_id  ,
+ci.total_earnings  ,
+ui.member_level_id  ,
+ci.commission_ratio  ,
+ui.phone_number  ,
+ci.user_info_user_info_id_3  ,
+ui.email  ,
+ui.username  
+
+
+        FROM commission_info ci
+        left join user_info ui on ci.user_info_user_info_id_3 = ui.user_info_id
+
+
+
+        where ci.commission_info_id = #{id}
+        </select>
+
+<select id="selectCount" resultType="java.lang.Long">
+select
+count(*)
+
+
+
+FROM commission_info ci
+left join user_info ui on ci.user_info_user_info_id_3 = ui.user_info_id
+
+
+
+${ew.customSqlSegment}
+
+
+        </select>
+
+        </mapper>

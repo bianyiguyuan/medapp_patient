@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kuafu.web.mapper.CouponInfoStatisticsMapper">
+
+    <resultMap id="coupon_info_statistic_d903bc2c_countStatistic0" type="com.kuafu.web.entity.CouponInfoStatisticD903bc2cCount$Statistic0">
+        <result property="userInfoUserInfoId4" column="user_info_user_info_id_4"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="coupon_info_statistic_e2133559_countStatistic0" type="com.kuafu.web.entity.CouponInfoStatisticE2133559Count$Statistic0">
+        <result property="userInfoUserInfoId4" column="user_info_user_info_id_4"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+<resultMap id="coupon_info_statistic_76e50a69_countStatistic0" type="com.kuafu.web.entity.CouponInfoStatistic76e50a69Count$Statistic0">
+        <result property="userInfoUserInfoId4" column="user_info_user_info_id_4"/>
+        <result property="result_kf" column="result_kf"/>
+    </resultMap>
+
+
+
+    <select id="coupon_info_statistic_d903bc2c_count" resultMap="coupon_info_statistic_d903bc2c_countStatistic0">
+        select
+                ci.user_info_user_info_id_4  
+                ,  count(ci.coupon_info_id)
+ as result_kf
+        FROM coupon_info ci
+
+        ${ew.customSqlSegment}
+        group by 
+            ci.user_info_user_info_id_4
+    </select>
+
+
+    <select id="coupon_info_statistic_e2133559_count" resultMap="coupon_info_statistic_e2133559_countStatistic0">
+        select
+                ci.user_info_user_info_id_4  
+                ,  count(ci.coupon_info_id)
+ as result_kf
+        FROM coupon_info ci
+
+        ${ew.customSqlSegment}
+        group by 
+            ci.user_info_user_info_id_4
+    </select>
+
+
+    <select id="coupon_info_statistic_76e50a69_count" resultMap="coupon_info_statistic_76e50a69_countStatistic0">
+        select
+                ci.user_info_user_info_id_4  
+                ,  count(ci.coupon_info_id)
+ as result_kf
+        FROM coupon_info ci
+
+        ${ew.customSqlSegment}
+        group by 
+            ci.user_info_user_info_id_4
+    </select>
+
+
+
+</mapper>
