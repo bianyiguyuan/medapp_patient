@@ -1,334 +1,548 @@
 <template>
   <base-layout>
-    <!-- 顶部导航栏 -->
-    <view class="fixed z-50 left-0 right-0 top-0 bg-white bg-opacity-95 flex items-center justify-between px-3 py-2 shadow-md" style="height:56px;">
-      <view class="flex items-center">
-        <image src="https://www.codeflying.net/preview/ai-girl3.jpg" class="w-8 h-8 mr-2 rounded-full bg-gradient-to-br from-pink-200 to-purple-200 shadow" mode="aspectFill" style="border:2.5px solid #FF5C8A;" />
-        <text class="text-[18px] font-bold text-[#FF5C8A] tracking-widest font-sans logo-title">求美小天才</text>
-      </view>
-      <button class="rounded-full flex items-center py-1 px-3 bg-gradient-to-r from-pink-400 to-purple-400 shadow-xl active:scale-95 transition-transform" style="height:36px" @click="goToMemberCenter" aria-label="会员中心">
-        <base-icon type="vip" size="22" color="#ffd700" class="mr-1 animate-vip-shake"/>
-        <text class="text-xs font-medium text-[#FFD700]">会员中心</text>
+    <view class="chat-wrapper relative">
+      <scroll-view
+        scroll-y
+        class="chat-scroll card-bg"
+        :scroll-into-view="lastMsgAnchor"
+        refresher-enabled
+      >
+        <view class="chat-container">
+
+          <!-- 🌸 固定AI头像 + 毛玻璃层 -->
+          <view class="ai-header-fixed">
+            <view class="ai-header-blur"></view>
+
+            <view class="ai-avatar-fixed animate-avatar-bounce">
+              <view class="ai-avatar-frame">
+                <view class="ai-avatar-flash"></view> 
+                <image
+                  src="https://www.codeflying.net/preview/ai-girl3.jpg"
+                  class="ai-avatar-img ai-eyeblink"
+                  mode="aspectFill"
+                />
+              </view>
+              <text class="ai-title">求美小天才</text>
+            </view>
+          </view>
+
+
+
+          <!-- 🌸 欢迎示例 -->
+          <view v-if="showWelcomeExamples" class="welcome-block">
+            <text
+              v-for="(ex, idx) in exampleQuestions"
+              :key="idx"
+              class="welcome-item animate-fadein"
+              @click="clickExample(ex)"
+            >
+              {{ ex }}
+            </text>
+          </view>
+
+          <!-- 💬 聊天区 -->
+          <view v-if="messages.length" class="flex flex-col gap-3 min-h-[60vh] pb-10">
+            <view v-for="(msg, idx) in messages" :key="idx">
+              <template v-if="msg.role === 'user'">
+                <view class="msg-user animate-bubblein">
+                  <view class="bubble-user">{{ msg.text }}</view>
+                </view>
+              </template>
+              <template v-else>
+                <view class="msg-ai animate-bubblein">
+                  <view class="bubble-ai">
+                    <base-icon type="vip-filled" size="18" color="#fff" class="mr-2 animate-vip-shake"/>
+                    <span>{{ msg.text }}</span>
+                  </view>
+                </view>
+              </template>
+            </view>
+            <view :id="lastMsgAnchor"></view>
+          </view>
+        </view>
+      </scroll-view>
+
+      <view class="chat-input-bar">
+  <view class="chat-input-inline">
+
+
+    <!-- ✏️ 文本输入 -->
+    <textarea
+      v-model="inputText"
+      :placeholder="inputPlaceholder"
+      auto-height
+      class="chat-textarea"
+      @confirm="handleSend"
+    />
+
+    <!-- 🚀 动态显示：发送键 or 功能图标 -->
+    <template v-if="inputText.trim().length > 0">
+      <!-- 当有输入内容时：显示发送按钮 -->
+      <button class="send-btn" :disabled="loading" @click="handleSend">
+        <base-icon v-if="!loading" type="arrow-up" size="18" color="#fff" />
+        <view v-else class="animate-spin">
+          <base-icon type="spinner-cycle" size="16" color="#fff" />
+        </view>
       </button>
-    </view>
+    </template>
+    <template v-else>
+      <!-- 否则：显示功能 icon tabs -->
+      <view class="quick-icons">
+        <view
+          v-for="(item, idx) in quickTabs"
+          :key="idx"
+          class="icon-btn"
+          @click="clickQuickTab(item)"
+        >
+          <base-icon :type="item.icon" size="20" color="#A88BFF" />
+        </view>
+      </view>
+    </template>
+  </view>
+</view>
 
-    <!-- 主对话区 -->
-    <scroll-view
-      scroll-y
-      class="flex-1 mb-2 px-1 card-bg pb-2"
-      :style="{ height: 'calc(100vh - 100px)', paddingBottom: '100px' }"
-      :scroll-into-view="lastMsgAnchor"
-      refresher-enabled
-    >
-      <!-- AI头像区 -->
-      <view class="flex flex-col items-center mt-0 mb-2 ai-avatar-area" style="margin-top:2px;">
-        <view class="relative flex flex-col items-center animate-avatar-bounce">
-          <view class="w-20 h-20 rounded-full bg-gradient-to-br from-[#FFB7C5] via-[#FFCEE3] to-[#9B6BDF] shadow-2xl flex items-center justify-center ai-avatar-flash">
-            <image src="https://www.codeflying.net/preview/ai-girl3.jpg" class="w-16 h-16 rounded-full ai-eyeblink" mode="aspectFill"/>
-          </view>
-          <text class="mt-2 text-[#9B6BDF] font-bold text-lg tracking-wider ai-title">求美小天才</text>
-        </view>
-      </view>
-      <!-- 欢迎示例问题 -->
-      <view v-if="showWelcomeExamples" class="my-6 flex flex-col gap-4 items-center justify-center">
-        <text v-for="(ex, idx) in exampleQuestions" :key="idx" class="text-sm text-gray-400 text-center py-2 px-4 rounded-full bg-gray-50 font-thin cursor-pointer hover:bg-pink-50 transition-colors animate-fadein"
-          @click="clickExample(ex)">{{ ex }}</text>
-      </view>
-      <!-- 对话内容气泡（无头像，仅文本） -->
-      <view v-if="messages.length" class="flex flex-col gap-3 min-h-[60vh] pb-8">
-        <view v-for="(msg, idx) in messages" :key="idx">
-          <!-- 对话气泡普通文本 -->
-          <template v-if="msg.type === 'bubble'">
-            <!-- 用户气泡：右圆左方，灰色背景，最大宽度70vw -->
-            <view v-if="msg.role==='user'" class="flex flex-row-reverse items-end w-full mb-1 animate-bubblein">
-              <view class="bg-[#f1f1f1] text-gray-800 rounded-tr-2xl rounded-br-2xl rounded-l-none px-4 py-2 shadow-sm max-w-[70vw] text-[15px] text-right" style="font-family: 'PingFang SC', sans-serif; margin-left:auto;">
-                {{ msg.text }}
-              </view>
-            </view>
-            <!-- AI气泡：左圆右方，粉色渐变，最大宽度70vw，白色文字 -->
-            <view v-else class="flex items-end w-full mb-1 animate-bubblein">
-              <view class="flex-1">
-                <view class="bg-gradient-to-tr from-[#FF5C8A] to-[#9B6BDF] text-white rounded-tl-2xl rounded-bl-2xl rounded-r-none px-4 py-2 shadow max-w-[70vw] flex items-center text-[15px] font-medium font-sans">
-                  <base-icon type="vip-filled" size="16" color="#fff" class="mr-2"/>
-                  <span class="ai-msg-typewriter">{{ msg.text }}</span>
-                </view>
-              </view>
-            </view>
-          </template>
-          <!-- 其余自定义卡片类内容（如医生/项目等），不变 -->
-          <template v-else-if="msg.type==='doctor_card'">
-            <view class="bg-white rounded-xl shadow-xl p-4 flex items-center gap-3 mt-2 border-l-4 border-pink-400 animate-cardfadein">
-              <image :src="msg.avatar" class="w-12 h-12 rounded-full object-cover border-2 border-purple-300" />
-              <view class="flex-1 min-w-0">
-                <view class="flex items-center mb-1">
-                  <text class="text-base font-bold text-[#FF5C8A] mr-2">{{ msg.name }}</text>
-                  <uni-tag text="认证医生" type="royal" size="small" circle class="ml-1" />
-                  <uni-tag text="合作机构" type="default" size="small" circle class="ml-1" />
-                </view>
-                <view class="flex items-center text-sm text-gray-600 mb-1">
-                  <base-icon type="star-filled" size="15" color="#FFB000" class="mr-1"/><text>{{ msg.rating }}</text>
-                  <base-icon type="location-filled" size="15" color="#6A6AFF" class="mx-2"/><text>{{ msg.distance }}km</text>
-                </view>
-                <button @click="onCardCoupon(msg)" class="rounded-full bg-gradient-to-r from-pink-400 to-orange-400 text-white px-5 py-1 font-bold shadow-md mt-1 text-xs active:scale-95 transition-transform">
-                  领取¥{{ msg.coupon }}优惠券
-                </button>
-              </view>
-            </view>
-          </template>
-          <template v-else-if="msg.type==='project_card'">
-            <view class="bg-gradient-to-r from-[#FFB7C5] to-[#FFEEED] rounded-xl shadow-xl p-4 flex items-center gap-3 mt-2 min-w-0 animate-cardfadein">
-              <image :src="msg.cover || 'https://www.codeflying.net/preview/growth-chart.jpg'" class="w-12 h-12 rounded-lg object-cover border-2 border-pink-300" />
-              <view class="flex-1 min-w-0">
-                <view class="font-bold text-[#FF5C8A] mb-1 text-base">{{ msg.name }}</view>
-                <view class="flex items-center mb-3">
-                  <text class="text-sm text-gray-600 flex items-center"><base-icon type="wallet" size="14" color="#E26A8D"/> ￥{{ msg.price }}</text>
-                  <uni-tag v-if="msg.tag" :text="msg.tag" type="warning" size="small" circle class="ml-2" />
-                </view>
-                <button @click="onCardBook(msg)" class="rounded-full bg-gradient-to-r from-pink-400 to-orange-400 text-white px-6 py-1 font-bold shadow-md text-xs active:scale-95 transition-transform">
-                  立即预约
-                </button>
-              </view>
-            </view>
-          </template>
-          <template v-else-if="msg.type==='skincare_card'">
-            <view class="bg-white rounded-xl shadow p-4 flex gap-4 mt-2 animate-cardfadein">
-              <view class="flex-1 flex flex-col items-center">
-                <base-icon type="color" size="26" color="#FF5C8A" class="mb-1"/>
-                <text class="font-bold text-md text-[#FF5C8A]">护肤</text>
-                <text class="text-xs text-gray-600 mt-1">{{ msg.tips1 }}</text>
-              </view>
-              <view class="flex-1 flex flex-col items-center">
-                <base-icon type="vip" size="26" color="#9B6BDF" class="mb-1"/>
-                <text class="font-bold text-md text-[#9B6BDF]">医美</text>
-                <text class="text-xs text-gray-600 mt-1">{{ msg.tips2 }}</text>
-              </view>
-              <view class="flex-1 flex flex-col items-center">
-                <base-icon type="calendar" size="26" color="#E26A8D" class="mb-1"/>
-                <text class="font-bold text-md text-[#E26A8D]">作息</text>
-                <text class="text-xs text-gray-600 mt-1">{{ msg.tips3 }}</text>
-              </view>
-            </view>
-          </template>
-          <template v-else-if="msg.type==='detection_card'">
-            <view class="bg-gradient-to-r from-[#FFD6EC] via-[#FFB7C5] to-[#FAE2FF] rounded-xl shadow-xl p-5 mt-2 flex items-center justify-between animate-cardfadein">
-              <view class="flex items-center gap-2">
-                <base-icon type="auth-filled" size="24" color="#7C3AED"/>
-                <text class="font-bold text-[#9B6BDF] text-base">颜龄检测</text>
-              </view>
-              <button @click="gotoDetection" class="rounded-full bg-gradient-to-r from-pink-400 to-orange-400 text-white px-6 py-1 font-bold shadow-md text-xs active:scale-95 transition-transform">
-                立即检测
-              </button>
-            </view>
-          </template>
-        </view>
-        <view :id="lastMsgAnchor"></view>
-      </view>
-    </scroll-view>
-
-    <!-- 输入框固定在页面底部（适配TabBar 60px） -->
-    <view class="fixed left-0 right-0 w-full px-4 py-3 bg-white z-40 input-bar" :style="{ bottom: '60px' }">
-      <view class="mx-auto max-w-xl flex items-end gap-2">
-        <view class="flex-1 relative">
-          <view class="absolute left-3 top-0 bottom-0 flex items-center">
-            <button class="rounded-full px-2 py-1 h-8 w-8 flex items-center justify-center bg-gradient-to-br from-pink-200 to-purple-200 border-none mr-1 shadow-sm" title="语音输入" @click="onVoiceInput">
-              <base-icon type="mic" size="18" color="#FF5C8A"/>
-            </button>
-          </view>
-          <!-- 输入框 -->
-          <input v-model="inputText"
-            :placeholder="inputPlaceholder"
-            class="pl-12 pr-12 py-2 rounded-full bg-white shadow-lg w-full text-base outline-none border border-gray-100 transition-shadow duration-100 ease-in hover:shadow-xl focus:shadow-2xl animate-inputzoom"
-            :disabled="loading"
-            @keydown.enter="handleSend"
-            @focus="handleInputFocus"
-            @blur="handleInputBlur"/>
-          <view class="absolute right-3 top-0 bottom-0 flex items-center">
-            <!-- 发送按钮尺寸缩小 px-4 py-2 -->
-            <button @click="handleSend" :disabled="loading||!inputText.trim()" class="rounded-full px-4 py-2 shadow-lg bg-gradient-to-r from-[#FF5C8A] to-[#FFB478] text-white font-bold text-base transition-all active:scale-95 flex items-center justify-center send-btn" :class="{'send-loading':loading}" style="min-width:44px;min-height:34px;max-width:100px;">
-              <base-icon type="arrow-up" size="18" color="#fff" v-if="!loading"/>
-              <view v-else class="animate-spin"><base-icon type="spinner-cycle" size="16" color="#fff"/></view>
-            </button>
-          </view>
-        </view>
-      </view>
     </view>
   </base-layout>
 </template>
+
 <script setup>
-const { proxy } = getCurrentInstance();
-const inputText = ref('');
-const inputPlaceholder = ref('输入您的美容问题…');
-const loading = ref(false);
-const lastMsgAnchor = ref('end-anchor');
-const messages = ref([]);
-const showWelcomeExamples = ref(true);
+const { proxy } = getCurrentInstance()
+const inputText = ref('')
+const inputPlaceholder = ref('输入您的美容问题…')
+const loading = ref(false)
+const lastMsgAnchor = ref('end-anchor')
+const messages = ref([])
+const showWelcomeExamples = ref(true)
+
+const STORAGE_KEY = 'chat_messages_v1'   // 缓存 key
+
+// 🌸 欢迎示例
 const exampleQuestions = [
   '我想去皱，有推荐吗？',
   '最近皮肤暗沉怎么办？',
-  '我想预约美容服务'
-];
-function goToMemberCenter() {
-  proxy.$cf.navigate.to({ url: '/pages/mycenter/index', type: 'page' });
+  '我想预约美容服务',
+  '我想领取优惠券'
+]
+
+const quickTabs = ref([
+  { text: '预约', icon: 'calendar', action: '/pagesA/appointment/index' },
+  { text: '检测', icon: 'scan', action: '/pagesA/facedetect/index' },
+  { text: '我的', icon: 'user', action: '/pagesA/profile/index' },
+])
+
+function clickQuickTab(item) {
+  proxy.$cf.navigate.to({ url: item.action, type: 'page' })
 }
-function clickExample(txt) {
-  inputText.value = txt;
-  showWelcomeExamples.value = false;
-  setTimeout(()=>{handleSend()},80);
-}
-function onVoiceInput() {
-  if (loading.value) return;
-  const randomDemo = exampleQuestions[parseInt(Math.random()*exampleQuestions.length)];
-  inputText.value = randomDemo;
-  setTimeout(() => {
-    handleSend();
-  },150);
-}
-let typewriterTimer = null;
-let aiReplyTextBuffer = '';
-async function handleSend() {
-  if (loading.value) return;
-  const q = inputText.value.trim();
-  if (!q) return;
-  messages.value.push({ role:'user', text: q, type:'bubble' });
-  inputText.value = '';
-  showWelcomeExamples.value = false;
-  loading.value = true;
-  const prompt = '角色：你是美业AI顾问。任务：理解用户意图，智能输出结构化响应（如检测推荐卡、医生推荐卡、项目卡、护肤卡、分销卡），否则普通文本回复。输出：如有结构化请直接明文输出JSON对象，禁止代码块嵌套。';
-  setTimeout(async ()=>{
-    let aiResp = '';
+
+
+
+
+// ========== 恢复历史记录 ==========
+onLoad(() => {
+  const cached = uni.getStorageSync(STORAGE_KEY)
+  if (cached) {
     try {
-      const res = await proxy.$cf.ai.text2text({
-        prompt, text: q, conversation_id:''
-      });
-      if(res.success && res.data){
-        aiReplyTextBuffer = '';
-        let parsed = null;
-        try {
-          parsed = JSON.parse(res.data.answer);
-        } catch{
-          parsed = null;
-        }
-        if(parsed && parsed.type){
-          if(parsed.type == 'doctor_card'){
-            messages.value.push({ ...parsed, type:'doctor_card', role:'ai' });
-          } else if(parsed.type=='project_card'){
-            messages.value.push({ ...parsed, type:'project_card', role:'ai' });
-          } else if(parsed.type=='skincare_card'){
-            messages.value.push({ ...parsed, type:'skincare_card', role:'ai' });
-          } else if(parsed.type=='detection_card'){
-            messages.value.push({ ...parsed, type:'detection_card', role:'ai' });
-          } else {
-            await showTypewriterEffect(res.data.answer||'');
-          }
-        } else {
-          await showTypewriterEffect(res.data.answer||'');
-        }
-      } else {
-        await showTypewriterEffect('AI暂无回答，请稍后再试。');
-      }
-    } catch(e) {
-      await showTypewriterEffect('抱歉，当前网络或AI服务异常');
-    }
-    loading.value = false;
-    scrollToBottom();
-  },700);
-}
-async function showTypewriterEffect(fullText) {
-  aiReplyTextBuffer = '';
-  let idx = 0;
-  let msg = { role:'ai', text:'', type:'bubble' };
-  messages.value.push(msg);
-  function tick(){
-    if(idx<=fullText.length){
-      msg.text = fullText.slice(0,idx);
-      idx++;
-      typewriterTimer = setTimeout(tick, 18+Math.random()*28);
+      messages.value = JSON.parse(cached)
+    } catch {
+      messages.value = []
     }
   }
-  tick();
-  return new Promise(resolve => {
-    setTimeout(()=>{
-      clearTimeout(typewriterTimer);
-      msg.text = fullText;
-      resolve();
-      scrollToBottom();
-    }, Math.max(fullText.length*35, 800));
-  });
+  showWelcomeExamples.value = messages.value.length === 0
+  setTimeout(() => scrollToBottom(), 200)
+})
+
+// ========== 自动保存聊天记录 ==========
+function saveMessages() {
+  // 限制最多保留 50 条
+  if (messages.value.length > 50)
+    messages.value = messages.value.slice(-50)
+
+  uni.setStorageSync(STORAGE_KEY, JSON.stringify(messages.value))
 }
-function onCardCoupon(card){
-  proxy.$cf.toast({ message: `已为您发放${card.coupon}元优惠券！`, level: 'success' });
+
+// ========== 点击示例 ==========
+function clickExample(txt) {
+  inputText.value = txt
+  showWelcomeExamples.value = false
+  setTimeout(() => handleSend(txt), 100)
 }
-function onCardBook(card){
-  proxy.$cf.toast({ message: '预约成功，相关工作人员会与您联系~', level: 'success' });
+
+// ========== 模拟语音输入 ==========
+function onVoiceInput() {
+  if (loading.value) return
+  const randomDemo = exampleQuestions[Math.floor(Math.random() * exampleQuestions.length)]
+  inputText.value = randomDemo
+  setTimeout(() => handleSend(randomDemo), 150)
 }
-function gotoDetection(){
-  proxy.$cf.navigate.to({ url:'/pages/facedetect/index', type:'page' });
+
+
+// ========== 主发送逻辑 ==========
+async function handleSend() {
+  if (loading.value || !inputText.value.trim()) return;
+  const q = inputText.value.trim();
+
+  messages.value.push({ role: 'user', text: q });
+  saveMessages();
+
+  inputText.value = ''; // ✅ 清空输入框 → 自动切回tab
+  loading.value = true;
+
+  setTimeout(async () => {
+    const reply = generateSmartReply(q);
+    await showTypewriterEffect(reply);
+    loading.value = false;
+    scrollToBottom();
+  }, 500);
 }
-function handleInputFocus(){
-  try {
-    uni.hideTabBar();
-  } catch(e) { /* 容错处理 */ }
+
+
+// ========== 智能AI回复 ==========
+function generateSmartReply(q) {
+  if (q.includes('检测') || q.includes('暗沉')) {
+    return '我来帮您打开皮肤检测页面，看看肤质状况吧～'
+  } else if (q.includes('预约') || q.includes('医生')) {
+    return '我来为您连接专业医生，帮您安排预约～'
+  } else if (q.includes('去皱') || q.includes('项目')) {
+    return '我来推荐几个热门除皱项目给您～'
+  } else if (q.includes('优惠') || q.includes('券')) {
+    return '好主意～我来带您看看本月优惠活动！'
+  } else {
+    return '我在听，请告诉我您的美容需求～'
+  }
 }
-function handleInputBlur(){
-  try {
-    uni.showTabBar();
-  } catch(e) { /* 容错处理 */ }
+
+// ========== 智能跳转 ==========
+function handleIntentNavigation(text) {
+  const lower = text.toLowerCase()
+  setTimeout(() => {
+    if (lower.includes('检测') || lower.includes('暗沉')) {
+      proxy.$cf.navigate.to({ url: '/pagesA/facedetect/index', type: 'page' })
+    } else if (lower.includes('预约') || lower.includes('医生')) {
+      proxy.$cf.navigate.to({ url: '/pagesA/doctor_list/index', type: 'page' })
+    } else if (lower.includes('去皱') || lower.includes('项目')) {
+      proxy.$cf.navigate.to({ url: '/pagesA/project_recommend/index', type: 'page' })
+    } else if (lower.includes('优惠') || lower.includes('券')) {
+      proxy.$cf.navigate.to({ url: '/pagesA/coupon_center/index', type: 'page' })
+    }
+  }, 1800)
 }
-function scrollToBottom(){
-  lastMsgAnchor.value = 'end-anchor';
-  /* #ifdef H5 */
+
+// ========== 打字机效果 ==========
+async function showTypewriterEffect(fullText) {
+  let msg = { role: 'ai', text: '' }
+  messages.value.push(msg)
+  saveMessages() // 💾保存AI消息
+  let idx = 0
+  function tick() {
+    if (idx <= fullText.length) {
+      msg.text = fullText.slice(0, idx)
+      idx++
+      setTimeout(tick, 18 + Math.random() * 25)
+    } else {
+      saveMessages() // 💾打完后再保存一次
+    }
+  }
+  tick()
+}
+
+// ========== 滚动到底 ==========
+function scrollToBottom() {
+  lastMsgAnchor.value = 'end-anchor'
   setTimeout(() => {
     try {
-      uni.createSelectorQuery().select('#end-anchor').node().exec(function(res){
-        if (res && res[0] && res[0].node) {
-          res[0].node.scrollIntoView({behavior:'smooth'});
-        }
-      });
-    } catch(e) {
-    }
-  }, 120);
-  /* #endif */
+      uni.createSelectorQuery().select('#end-anchor').node().exec((res) => {
+        if (res?.[0]?.node) res[0].node.scrollIntoView({ behavior: 'smooth' })
+      })
+    } catch {}
+  }, 100)
 }
-onLoad(() => {
-  setTimeout(()=>{ showWelcomeExamples.value = true; }, 200);
-  scrollToBottom();
-});
+
+function handleInputFocus() { try { uni.hideTabBar() } catch {} }
+function handleInputBlur() { try { uni.showTabBar() } catch {} }
 </script>
+
+
 <style scoped>
+
+/* === 固定头像顶栏 === */
+.ai-header-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 140rpx;       /* ✅ 关键：撑出玻璃高度 */
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  z-index: 99;
+}
+
+/* 毛玻璃背景 */
+.ai-header-blur {
+  position: absolute;   /* ✅ 让它覆盖固定区 */
+  inset: 0;
+  background: rgba(255,255,255,0.3);  /* ✅ 可见但透亮 */
+  backdrop-filter: blur(7rpx) saturate(110%) brightness(0.97);
+  -webkit-backdrop-filter: blur(300rpx) saturate(180%) brightness(3);
+  box-shadow:
+    inset 0 0 20rpx rgba(255,255,255,0.5),
+    0 6rpx 18rpx rgba(255,182,193,0.8);
+  border-bottom: 1rpx solid rgba(255,255,255,0.7);
+  z-index: 1;
+}
+
+
+
+
+/* 缩小头像 + 居中悬浮 */
+.ai-avatar-fixed {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  transform: translateY(10rpx);
+}
+
+/* === 缩小版头像框 === */
+.ai-avatar-frame {
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FFB7C5 0%, #9B6BDF 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 18rpx rgba(255, 182, 193, 0.6),
+              0 0 28rpx rgba(155, 107, 223, 0.3);
+}
+
+.ai-avatar-img {
+  width: 70rpx;
+  height: 70rpx;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* === 头像文字缩小 === */
+.ai-title {
+  margin-top: 6rpx;
+  color: #9B6BDF;
+  font-weight: 600;
+  font-size: 24rpx;
+  font-family: 'PingFang SC', sans-serif;
+  letter-spacing: 2rpx;
+}
+
+/* === 动画：轻浮上下 === */
+@keyframes avatar-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-rpx); }
+}
+.animate-avatar-bounce {
+  animation: avatar-bounce 3.8s ease-in-out infinite;
+}
+
+
+/* === 核心视觉动画 & 光效 === */
 .logo-title { letter-spacing:2px; font-family:'PingFang SC','Microsoft YaHei',sans-serif; }
 .animate-vip-shake { animation: shake-vip 1.5s infinite ease-in-out; }
-@keyframes shake-vip {
-  0%{ transform:rotate(0); } 20%{ transform:rotate(12deg); } 35%{ transform:rotate(-10deg);} 50%{transform:rotate(8deg);} 70%{transform:rotate(0);} 100%{transform:rotate(0);}
-}
+@keyframes shake-vip { 0%{ transform:rotate(0); } 20%{ transform:rotate(12deg); } 35%{ transform:rotate(-10deg);} 50%{transform:rotate(8deg);} 70%{transform:rotate(0);} 100%{transform:rotate(0);} }
 .ai-avatar-flash{box-shadow:0 0 25px 4px #e39ad8d9,0 0 42px 17px #ffd6eba5,inset 0 0 12px 5px #ffc5e1d3;}
-.ai-eyeblink{animation: ai-eyeblink 4s infinite;}
-@keyframes ai-eyeblink {
-  0%,97%{filter:none;} 98%{filter:brightness(0.6) blur(2px);} 99%{filter:none;} 100%{filter:none;}
-}
 .animate-avatar-bounce{animation: avatar-bounce 3.6s infinite;}
 @keyframes avatar-bounce {0%,100%{transform:translateY(0);} 50%{transform:translateY(-8px);}}
 .animate-bubblein{ animation: bubblein .54s cubic-bezier(.58,1.45,.6,.93) both; }
 @keyframes bubblein{0%{opacity:0;transform:translateY(18px);}100%{opacity:1;transform:translateY(0);}}
 .animate-fadein{ animation: fadein .52s both; }
 @keyframes fadein{0%{opacity:0;}100%{opacity:1;}}
-.animate-cardfadein{animation:cardfadein .65s both;}
-@keyframes cardfadein{0%{opacity:0;transform:scale(.95);}100%{opacity:1;transform:scale(1);}}
-.ai-avatar-area{ margin-bottom:.25rem;margin-top:.125rem;}
-.ai-title{ font-family:'PingFang SC',sans-serif;font-weight:600; }
-.send-btn{ transition:box-shadow background .18s; box-shadow:0 2px 12px 0 #ffb7c5ba; }
-.send-btn:active { box-shadow:0 0 0 0 #fff; transform:scale(.94);}
-.send-loading .base-icon{ display:none; }
-.send-loading .animate-spin{ display:inline-block;}
-@keyframes spin {100%{transform:rotate(360deg);}}
-.animate-spin{animation:spin 0.8s linear infinite;}
-.send-btn:disabled { opacity:.4; filter:grayscale(.7); }
-.bg-gradient-to-r{ background-image:linear-gradient(90deg,#ff5c8a,#fcb075); }
-.bg-gradient-to-br{background-image:linear-gradient(135deg,#FFB7C5 0%,#9B6BDF 100%);}
-.bg-gradient-to-tr{background-image:linear-gradient(45deg,#ff5c8a 0,#9b6bdf 100%);}
-.button.shadow-xl{box-shadow:0 8px 36px 0 #ffd6eb42;}
 .card-bg{ background:linear-gradient(165deg,#fff 80%,#fff7fe 100%); }
-input.animate-inputzoom:focus{ transform:scale(1.03); box-shadow:0 6px 30px #ffc0e1a6!important;border:1.5px solid #FF5C8A;}
-.uni-tag { vertical-align: middle; }
 ::-webkit-scrollbar{display:none;}
 .input-bar { z-index: 5500 !important; }
+
+/* === 头像柔光圈闪烁 === */
+.ai-avatar-flash {
+  position: absolute;
+  inset: 0; /* 让它完全覆盖头像外框 */
+  border-radius: 50%;
+  box-shadow:
+    0 0 25px 4px #e39ad8d9,   /* 粉紫柔光边 */
+    0 0 42px 17px #ffd6eba5,  /* 大范围淡粉辉光 */
+    inset 0 0 12px 5px #ffc5e1d3; /* 内层高光 */
+  animation: flash-pulse 6s ease-in-out infinite;
+  z-index: 1;
+}
+
+/* 柔光闪烁动画（呼吸感） */
+@keyframes flash-pulse {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+/* 确保图片层级在光晕之上 */
+.ai-avatar-frame {
+  position: relative;
+  z-index: 2;
+}
+.ai-avatar-img {
+  position: relative;
+  z-index: 3;
+}
+
+
+/* ========== 聊天主体 ========== */
+.chat-scroll {
+  margin-top: 0rpx; /* 保留就行 */
+  background: transparent;
+  height: calc(100vh);  /* 视口高度 - 头像区(150rpx) - 输入区(70rpx左右) */
+  overflow-y: scroll;
+}
+
+.chat-wrapper {
+  position: relative;
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #ffffff 0%, #f3e6ff 50%, #fff 100%);
+  overflow: hidden;
+}
+
+
+.chat-container {
+  padding: 0 36rpx;
+  padding-top: 30rpx;
+  padding-bottom: 120rpx;
+  box-sizing: border-box;
+}
+
+/* ========== 欢迎示例 ========== */
+.welcome-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 60rpx 0;
+  gap: 18rpx;
+}
+.welcome-item {
+  color: #888;
+  background: #fdfdfd;
+  border-radius: 9999rpx;
+  padding: 12rpx 40rpx;
+  font-size: 26rpx;
+  transition: all .25s ease;
+}
+.welcome-item:hover { background: #ffe8f1; color: #FF5C8A; }
+
+/* ========== 气泡 ========== */
+.msg-user, .msg-ai { width: 100%; display: flex; align-items: flex-end; }
+.msg-user { justify-content: flex-end; }
+.msg-ai { justify-content: flex-start; }
+
+.bubble-user {
+  background: #f5f5f5;
+  color: #333;
+  padding: 18rpx 26rpx;
+  border-radius: 22rpx;
+  box-shadow: 0 4rpx 10rpx rgba(0,0,0,0.05);
+  max-width: 70vw;
+  word-break: break-word;
+}
+.bubble-ai {
+  background: linear-gradient(135deg, #FF6FA0, #A88BFF);
+  color: #fff;
+  padding: 18rpx 26rpx;
+  border-radius: 22rpx;
+  box-shadow: 0 4rpx 14rpx rgba(155,107,223,0.25);
+  max-width: 70vw;
+  display: inline-flex;
+  align-items: flex-start;
+}
+
+/* ========== 输入区 ========== */
+.chat-input-bar {
+  position: fixed;
+  left: 0; right: 0; bottom: 60px;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  background: transparent;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.chat-input-inline {
+  width: 92%;
+  display: flex;
+  align-items: center;
+  background: rgba(255,255,255,0.3);
+  border-radius: 50rpx;
+  padding: 10rpx 20rpx;
+  backdrop-filter: blur(16rpx);
+  box-shadow: 0 4rpx 20rpx rgba(255,182,193,0.3);
+  gap: 14rpx;
+}
+
+/* 图标组整体 */
+.quick-icons {
+  display: flex;
+  align-items: center;
+  gap: 14rpx;
+}
+
+/* 单个图标按钮 */
+.icon-btn {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 3rpx 8rpx rgba(168,139,255,0.2);
+  transition: all 0.25s ease;
+}
+.icon-btn:active {
+  transform: scale(0.9);
+  background: linear-gradient(135deg, #e9d7ff, #ffe6f3);
+}
+
+.chat-textarea {
+  flex: 1;
+  font-size: 28rpx;
+  min-height: 60rpx;
+  max-height: 180rpx;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #333;
+}
+
+.voice-btn, .send-btn {
+  width: 68rpx;
+  height: 68rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+}
+
+.voice-btn {
+  background: linear-gradient(135deg, #FFD6EC, #E5C8FF);
+}
+
+.send-btn {
+  background: linear-gradient(135deg, #FF6FA0, #A88BFF);
+  color: #fff;
+}
+
+
+.chat-textarea {
+  flex: 1;
+  font-size: 28rpx;
+  min-height: 60rpx;
+  max-height: 180rpx;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #333;
+  line-height: 1.5;
+  font-family: 'PingFang SC', sans-serif;
+}
 </style>

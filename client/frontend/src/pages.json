@@ -73,10 +73,9 @@
         "path": "home/index",
         "style":  {
                 "navigationBarTitleText": "",
-                "navigationStyle": "custom"
-,
-"enableShareAppMessage": true,
-"enableShareTimeline": true
+                "navigationStyle": "custom",
+                "enableShareAppMessage": true,
+                "enableShareTimeline": true
             }
     }, {
         "path": "membership/index",
